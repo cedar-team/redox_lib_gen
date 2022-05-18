@@ -2,22 +2,31 @@
 import os
 from pathlib import Path
 from subprocess import CalledProcessError, run
-from tempfile import TemporaryDirectory
 from typing import Optional
 from warnings import warn
 
+import pytest
 from snapshottest.file import FileSnapshot
 
-from .file import FileTestCase
+import redox_lib_gen
+
+from .no_spaces import NoSpacesPyTestSnapshotTest
 
 
+@pytest.fixture
+def my_snapshot(request):
+    with NoSpacesPyTestSnapshotTest(request) as snapshot_test:
+        yield snapshot_test
+
+
+@pytest.fixture
 def fresh_lib_generation(tmp_path) -> Optional[Path]:
     tmp_dir = Path(tmp_path).resolve() / "pyredox"
     tmp_dir.mkdir()
 
     # Change the working directory to be where generate.py file is
     previous_wd = os.getcwd()
-    os.chdir(Path(__file__).parent.parent)
+    os.chdir(Path(redox_lib_gen.__file__).parent.resolve())
 
     cmd = ["python3", "generate.py", "--dst", str(tmp_dir)]
     print(f"running command: `{' '.join(cmd)}`\n")
@@ -46,14 +55,11 @@ def fresh_lib_generation(tmp_path) -> Optional[Path]:
     return tmp_dir
 
 
-class TestLibGen(FileTestCase):
-    def test_compare_generated_with_existing(self):
-        with TemporaryDirectory() as tmp_dir:
-            lib_dir: Path = fresh_lib_generation(tmp_dir)
+def test_compare_generated_with_existing(my_snapshot, fresh_lib_generation: Path):
+    if fresh_lib_generation is None:
+        # Download failed
+        return
 
-            if lib_dir is None:
-                # Download failed
-                return
-
-            for f in sorted(lib_dir.glob("**/*.py")):
-                self.assert_match_snapshot(FileSnapshot(str(f)))
+    tmp_dir = fresh_lib_generation
+    for f in sorted(tmp_dir.glob("**/*.py")):
+        my_snapshot.assert_match(FileSnapshot(str(f)))
