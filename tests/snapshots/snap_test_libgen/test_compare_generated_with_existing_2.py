@@ -5,8 +5,8 @@ from typing import List, Union
 
 from pydantic import Field
 
+from .abstract_base import RedoxAbstractModel
 from .field_types import Number
-from .redox_abstract_model import RedoxAbstractModel
 
 
 class AdditionalStaff(RedoxAbstractModel):

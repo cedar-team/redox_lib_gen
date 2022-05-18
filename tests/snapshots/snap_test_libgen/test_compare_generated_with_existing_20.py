@@ -5,11 +5,11 @@ from typing import List, Union
 
 from pydantic import Field
 
+from ..abstract_base import EventTypeAbstractModel, RedoxAbstractModel
 from ..field_types import Number
-from ..redox_abstract_model import RedoxAbstractModel
 
 
-class AvailableSlots(RedoxAbstractModel):
+class AvailableSlots(EventTypeAbstractModel):
 
     EndDateTime: Union[str, None] = Field(None)
     Meta: "AvailableSlotsMeta" = Field(...)

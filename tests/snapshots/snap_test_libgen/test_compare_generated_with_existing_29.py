@@ -5,19 +5,19 @@ from typing import List, Union
 
 from pydantic import Field
 
+from ..abstract_base import EventTypeAbstractModel, RedoxAbstractModel
 from ..field_types import Number
-from ..redox_abstract_model import RedoxAbstractModel
 
 
-class NoShow(RedoxAbstractModel):
+class Reschedule(EventTypeAbstractModel):
 
-    AppointmentInfo: List["NoShowAppointmentInfo"] = Field(None)
-    Meta: "NoShowMeta" = Field(...)
-    Patient: "NoShowPatient" = Field(None)
-    Visit: "NoShowVisit" = Field(...)
+    AppointmentInfo: List["RescheduleAppointmentInfo"] = Field(None)
+    Meta: "RescheduleMeta" = Field(...)
+    Patient: "ReschedulePatient" = Field(None)
+    Visit: "RescheduleVisit" = Field(...)
 
 
-class NoShowAppointmentInfo(RedoxAbstractModel):
+class RescheduleAppointmentInfo(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     Codeset: Union[str, None] = Field(None)
@@ -25,58 +25,58 @@ class NoShowAppointmentInfo(RedoxAbstractModel):
     Value: Union[str, None] = Field(None)
 
 
-class NoShowMeta(RedoxAbstractModel):
+class RescheduleMeta(RedoxAbstractModel):
 
     DataModel: str = Field(...)
-    Destinations: List["NoShowMetaDestination"] = Field(None)
+    Destinations: List["RescheduleMetaDestination"] = Field(None)
     EventDateTime: Union[str, None] = Field(None)
     EventType: str = Field(...)
     FacilityCode: Union[str, None] = Field(None)
-    Logs: List["NoShowMetaLog"] = Field(None)
-    Message: "NoShowMetaMessage" = Field(None)
-    Source: "NoShowMetaSource" = Field(None)
+    Logs: List["RescheduleMetaLog"] = Field(None)
+    Message: "RescheduleMetaMessage" = Field(None)
+    Source: "RescheduleMetaSource" = Field(None)
     Test: Union[bool, None] = Field(None)
-    Transmission: "NoShowMetaTransmission" = Field(None)
+    Transmission: "RescheduleMetaTransmission" = Field(None)
 
 
-class NoShowMetaDestination(RedoxAbstractModel):
+class RescheduleMetaDestination(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class NoShowMetaLog(RedoxAbstractModel):
+class RescheduleMetaLog(RedoxAbstractModel):
 
     AttemptID: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
 
 
-class NoShowMetaMessage(RedoxAbstractModel):
+class RescheduleMetaMessage(RedoxAbstractModel):
 
     ID: Union[Number, None] = Field(None)
 
 
-class NoShowMetaSource(RedoxAbstractModel):
+class RescheduleMetaSource(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class NoShowMetaTransmission(RedoxAbstractModel):
+class RescheduleMetaTransmission(RedoxAbstractModel):
 
     ID: Union[Number, None] = Field(None)
 
 
-class NoShowPatient(RedoxAbstractModel):
+class ReschedulePatient(RedoxAbstractModel):
 
-    Demographics: "NoShowPatientDemographics" = Field(None)
-    Identifiers: List["NoShowPatientIdentifier"] = Field(None)
+    Demographics: "ReschedulePatientDemographics" = Field(None)
+    Identifiers: List["ReschedulePatientIdentifier"] = Field(None)
     Notes: List[str] = Field(None)
 
 
-class NoShowPatientDemographics(RedoxAbstractModel):
+class ReschedulePatientDemographics(RedoxAbstractModel):
 
-    Address: "NoShowPatientDemographicsAddress" = Field(None)
+    Address: "ReschedulePatientDemographicsAddress" = Field(None)
     Citizenship: List[str] = Field(None)
     DeathDateTime: Union[str, None] = Field(None)
     DOB: Union[str, None] = Field(None)
@@ -88,14 +88,14 @@ class NoShowPatientDemographics(RedoxAbstractModel):
     LastName: Union[str, None] = Field(None)
     MaritalStatus: Union[str, None] = Field(None)
     MiddleName: Union[str, None] = Field(None)
-    PhoneNumber: "NoShowPatientDemographicsPhoneNumber" = Field(None)
+    PhoneNumber: "ReschedulePatientDemographicsPhoneNumber" = Field(None)
     Race: Union[str, None] = Field(None)
     Religion: Union[str, None] = Field(None)
     Sex: Union[str, None] = Field(None)
     SSN: Union[str, None] = Field(None)
 
 
-class NoShowPatientDemographicsAddress(RedoxAbstractModel):
+class ReschedulePatientDemographicsAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -105,44 +105,45 @@ class NoShowPatientDemographicsAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class NoShowPatientDemographicsPhoneNumber(RedoxAbstractModel):
+class ReschedulePatientDemographicsPhoneNumber(RedoxAbstractModel):
 
     Home: Union[str, None] = Field(None)
     Mobile: Union[str, None] = Field(None)
     Office: Union[str, None] = Field(None)
 
 
-class NoShowPatientIdentifier(RedoxAbstractModel):
+class ReschedulePatientIdentifier(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
 
 
-class NoShowVisit(RedoxAbstractModel):
+class RescheduleVisit(RedoxAbstractModel):
 
     AccountNumber: Union[str, None] = Field(None)
-    AdditionalStaff: List["NoShowVisitAdditionalStaff"] = Field(None)
-    AttendingProvider: "NoShowVisitAttendingProvider" = Field(None)
-    ConsultingProvider: "NoShowVisitConsultingProvider" = Field(None)
-    Diagnoses: List["NoShowVisitDiagnosis"] = Field(None)
-    Duration: Union[Number, None] = Field(None)
-    Equipment: List["NoShowVisitEquipment"] = Field(None)
+    AdditionalStaff: List["RescheduleVisitAdditionalStaff"] = Field(None)
+    AttendingProvider: "RescheduleVisitAttendingProvider" = Field(None)
+    ConsultingProvider: "RescheduleVisitConsultingProvider" = Field(None)
+    Diagnoses: List["RescheduleVisitDiagnosis"] = Field(None)
+    Duration: Number = Field(...)
+    Equipment: List["RescheduleVisitEquipment"] = Field(None)
     Instructions: List[str] = Field(None)
-    Location: "NoShowVisitLocation" = Field(...)
-    NoShowReason: Union[str, None] = Field(None)
+    Location: "RescheduleVisitLocation" = Field(...)
+    OldDateTime: Union[str, None] = Field(None)
+    OldVisitNumber: Union[str, None] = Field(None)
     PatientClass: Union[str, None] = Field(None)
     Reason: Union[str, None] = Field(None)
-    ReferringProvider: "NoShowVisitReferringProvider" = Field(None)
+    ReferringProvider: "RescheduleVisitReferringProvider" = Field(None)
     Status: Union[str, None] = Field(None)
     Type: Union[str, None] = Field(None)
     VisitDateTime: str = Field(...)
     VisitNumber: str = Field(...)
-    VisitProvider: "NoShowVisitVisitProvider" = Field(None)
+    VisitProvider: "RescheduleVisitVisitProvider" = Field(None)
 
 
-class NoShowVisitAdditionalStaff(RedoxAbstractModel):
+class RescheduleVisitAdditionalStaff(RedoxAbstractModel):
 
-    Address: "NoShowVisitAdditionalStaffAddress" = Field(None)
+    Address: "RescheduleVisitAdditionalStaffAddress" = Field(None)
     Credentials: List[str] = Field(None)
     Duration: Union[Number, None] = Field(None)
     EmailAddresses: List[str] = Field(None)
@@ -150,13 +151,13 @@ class NoShowVisitAdditionalStaff(RedoxAbstractModel):
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "NoShowVisitAdditionalStaffLocation" = Field(None)
-    PhoneNumber: "NoShowVisitAdditionalStaffPhoneNumber" = Field(None)
-    Role: "NoShowVisitAdditionalStaffRole" = Field(None)
+    Location: "RescheduleVisitAdditionalStaffLocation" = Field(None)
+    PhoneNumber: "RescheduleVisitAdditionalStaffPhoneNumber" = Field(None)
+    Role: "RescheduleVisitAdditionalStaffRole" = Field(None)
     StartDateTime: Union[str, None] = Field(None)
 
 
-class NoShowVisitAdditionalStaffAddress(RedoxAbstractModel):
+class RescheduleVisitAdditionalStaffAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -166,7 +167,7 @@ class NoShowVisitAdditionalStaffAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class NoShowVisitAdditionalStaffLocation(RedoxAbstractModel):
+class RescheduleVisitAdditionalStaffLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -174,32 +175,32 @@ class NoShowVisitAdditionalStaffLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class NoShowVisitAdditionalStaffPhoneNumber(RedoxAbstractModel):
+class RescheduleVisitAdditionalStaffPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-class NoShowVisitAdditionalStaffRole(RedoxAbstractModel):
+class RescheduleVisitAdditionalStaffRole(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     Codeset: Union[str, None] = Field(None)
     Description: Union[str, None] = Field(None)
 
 
-class NoShowVisitAttendingProvider(RedoxAbstractModel):
+class RescheduleVisitAttendingProvider(RedoxAbstractModel):
 
-    Address: "NoShowVisitAttendingProviderAddress" = Field(None)
+    Address: "RescheduleVisitAttendingProviderAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "NoShowVisitAttendingProviderLocation" = Field(None)
-    PhoneNumber: "NoShowVisitAttendingProviderPhoneNumber" = Field(None)
+    Location: "RescheduleVisitAttendingProviderLocation" = Field(None)
+    PhoneNumber: "RescheduleVisitAttendingProviderPhoneNumber" = Field(None)
 
 
-class NoShowVisitAttendingProviderAddress(RedoxAbstractModel):
+class RescheduleVisitAttendingProviderAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -209,7 +210,7 @@ class NoShowVisitAttendingProviderAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class NoShowVisitAttendingProviderLocation(RedoxAbstractModel):
+class RescheduleVisitAttendingProviderLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -217,25 +218,25 @@ class NoShowVisitAttendingProviderLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class NoShowVisitAttendingProviderPhoneNumber(RedoxAbstractModel):
+class RescheduleVisitAttendingProviderPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-class NoShowVisitConsultingProvider(RedoxAbstractModel):
+class RescheduleVisitConsultingProvider(RedoxAbstractModel):
 
-    Address: "NoShowVisitConsultingProviderAddress" = Field(None)
+    Address: "RescheduleVisitConsultingProviderAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "NoShowVisitConsultingProviderLocation" = Field(None)
-    PhoneNumber: "NoShowVisitConsultingProviderPhoneNumber" = Field(None)
+    Location: "RescheduleVisitConsultingProviderLocation" = Field(None)
+    PhoneNumber: "RescheduleVisitConsultingProviderPhoneNumber" = Field(None)
 
 
-class NoShowVisitConsultingProviderAddress(RedoxAbstractModel):
+class RescheduleVisitConsultingProviderAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -245,7 +246,7 @@ class NoShowVisitConsultingProviderAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class NoShowVisitConsultingProviderLocation(RedoxAbstractModel):
+class RescheduleVisitConsultingProviderLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -253,12 +254,12 @@ class NoShowVisitConsultingProviderLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class NoShowVisitConsultingProviderPhoneNumber(RedoxAbstractModel):
+class RescheduleVisitConsultingProviderPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-class NoShowVisitDiagnosis(RedoxAbstractModel):
+class RescheduleVisitDiagnosis(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     Codeset: Union[str, None] = Field(None)
@@ -267,7 +268,7 @@ class NoShowVisitDiagnosis(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class NoShowVisitEquipment(RedoxAbstractModel):
+class RescheduleVisitEquipment(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     Codeset: Union[str, None] = Field(None)
@@ -276,7 +277,7 @@ class NoShowVisitEquipment(RedoxAbstractModel):
     StartDateTime: Union[str, None] = Field(None)
 
 
-class NoShowVisitLocation(RedoxAbstractModel):
+class RescheduleVisitLocation(RedoxAbstractModel):
 
     Department: str = Field(...)
     Facility: Union[str, None] = Field(None)
@@ -284,20 +285,20 @@ class NoShowVisitLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class NoShowVisitReferringProvider(RedoxAbstractModel):
+class RescheduleVisitReferringProvider(RedoxAbstractModel):
 
-    Address: "NoShowVisitReferringProviderAddress" = Field(None)
+    Address: "RescheduleVisitReferringProviderAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "NoShowVisitReferringProviderLocation" = Field(None)
-    PhoneNumber: "NoShowVisitReferringProviderPhoneNumber" = Field(None)
+    Location: "RescheduleVisitReferringProviderLocation" = Field(None)
+    PhoneNumber: "RescheduleVisitReferringProviderPhoneNumber" = Field(None)
 
 
-class NoShowVisitReferringProviderAddress(RedoxAbstractModel):
+class RescheduleVisitReferringProviderAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -307,7 +308,7 @@ class NoShowVisitReferringProviderAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class NoShowVisitReferringProviderLocation(RedoxAbstractModel):
+class RescheduleVisitReferringProviderLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -315,25 +316,25 @@ class NoShowVisitReferringProviderLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class NoShowVisitReferringProviderPhoneNumber(RedoxAbstractModel):
+class RescheduleVisitReferringProviderPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-class NoShowVisitVisitProvider(RedoxAbstractModel):
+class RescheduleVisitVisitProvider(RedoxAbstractModel):
 
-    Address: "NoShowVisitVisitProviderAddress" = Field(None)
+    Address: "RescheduleVisitVisitProviderAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "NoShowVisitVisitProviderLocation" = Field(None)
-    PhoneNumber: "NoShowVisitVisitProviderPhoneNumber" = Field(None)
+    Location: "RescheduleVisitVisitProviderLocation" = Field(None)
+    PhoneNumber: "RescheduleVisitVisitProviderPhoneNumber" = Field(None)
 
 
-class NoShowVisitVisitProviderAddress(RedoxAbstractModel):
+class RescheduleVisitVisitProviderAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -343,7 +344,7 @@ class NoShowVisitVisitProviderAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class NoShowVisitVisitProviderLocation(RedoxAbstractModel):
+class RescheduleVisitVisitProviderLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -351,18 +352,18 @@ class NoShowVisitVisitProviderLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class NoShowVisitVisitProviderPhoneNumber(RedoxAbstractModel):
+class RescheduleVisitVisitProviderPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-NoShow.update_forward_refs()
-NoShowMeta.update_forward_refs()
-NoShowPatient.update_forward_refs()
-NoShowPatientDemographics.update_forward_refs()
-NoShowVisit.update_forward_refs()
-NoShowVisitAdditionalStaff.update_forward_refs()
-NoShowVisitAttendingProvider.update_forward_refs()
-NoShowVisitConsultingProvider.update_forward_refs()
-NoShowVisitReferringProvider.update_forward_refs()
-NoShowVisitVisitProvider.update_forward_refs()
+Reschedule.update_forward_refs()
+RescheduleMeta.update_forward_refs()
+ReschedulePatient.update_forward_refs()
+ReschedulePatientDemographics.update_forward_refs()
+RescheduleVisit.update_forward_refs()
+RescheduleVisitAdditionalStaff.update_forward_refs()
+RescheduleVisitAttendingProvider.update_forward_refs()
+RescheduleVisitConsultingProvider.update_forward_refs()
+RescheduleVisitReferringProvider.update_forward_refs()
+RescheduleVisitVisitProvider.update_forward_refs()
