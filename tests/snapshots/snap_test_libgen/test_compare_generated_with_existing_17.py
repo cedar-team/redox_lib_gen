@@ -5,68 +5,68 @@ from typing import List, Union
 
 from pydantic import Field
 
+from ..abstract_base import EventTypeAbstractModel, RedoxAbstractModel
 from ..field_types import Number
-from ..redox_abstract_model import RedoxAbstractModel
 
 
-class CensusQueryResponse(RedoxAbstractModel):
+class VisitQueryResponse(EventTypeAbstractModel):
 
-    Meta: "CensusQueryResponseMeta" = Field(...)
-    Patients: List["CensusQueryResponsePatient"] = Field(None)
+    Meta: "VisitQueryResponseMeta" = Field(...)
+    Patients: List["VisitQueryResponsePatient"] = Field(None)
 
 
-class CensusQueryResponseMeta(RedoxAbstractModel):
+class VisitQueryResponseMeta(RedoxAbstractModel):
 
     DataModel: str = Field(...)
-    Destinations: List["CensusQueryResponseMetaDestination"] = Field(None)
+    Destinations: List["VisitQueryResponseMetaDestination"] = Field(None)
     EventDateTime: Union[str, None] = Field(None)
     EventType: str = Field(...)
     FacilityCode: Union[str, None] = Field(None)
-    Logs: List["CensusQueryResponseMetaLog"] = Field(None)
-    Message: "CensusQueryResponseMetaMessage" = Field(None)
-    Source: "CensusQueryResponseMetaSource" = Field(None)
+    Logs: List["VisitQueryResponseMetaLog"] = Field(None)
+    Message: "VisitQueryResponseMetaMessage" = Field(None)
+    Source: "VisitQueryResponseMetaSource" = Field(None)
     Test: Union[bool, None] = Field(None)
-    Transmission: "CensusQueryResponseMetaTransmission" = Field(None)
+    Transmission: "VisitQueryResponseMetaTransmission" = Field(None)
 
 
-class CensusQueryResponseMetaDestination(RedoxAbstractModel):
+class VisitQueryResponseMetaDestination(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class CensusQueryResponseMetaLog(RedoxAbstractModel):
+class VisitQueryResponseMetaLog(RedoxAbstractModel):
 
     AttemptID: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
 
 
-class CensusQueryResponseMetaMessage(RedoxAbstractModel):
+class VisitQueryResponseMetaMessage(RedoxAbstractModel):
 
     ID: Union[Number, None] = Field(None)
 
 
-class CensusQueryResponseMetaSource(RedoxAbstractModel):
+class VisitQueryResponseMetaSource(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class CensusQueryResponseMetaTransmission(RedoxAbstractModel):
+class VisitQueryResponseMetaTransmission(RedoxAbstractModel):
 
     ID: Union[Number, None] = Field(None)
 
 
-class CensusQueryResponsePatient(RedoxAbstractModel):
+class VisitQueryResponsePatient(RedoxAbstractModel):
 
-    Demographics: "CensusQueryResponsePatientDemographics" = Field(None)
-    Identifiers: List["CensusQueryResponsePatientIdentifier"] = Field(None)
-    Visits: List["CensusQueryResponsePatientVisit"] = Field(None)
+    Demographics: "VisitQueryResponsePatientDemographics" = Field(None)
+    Identifiers: List["VisitQueryResponsePatientIdentifier"] = Field(None)
+    Visits: List["VisitQueryResponsePatientVisit"] = Field(None)
 
 
-class CensusQueryResponsePatientDemographics(RedoxAbstractModel):
+class VisitQueryResponsePatientDemographics(RedoxAbstractModel):
 
-    Address: "CensusQueryResponsePatientDemographicsAddress" = Field(None)
+    Address: "VisitQueryResponsePatientDemographicsAddress" = Field(None)
     Citizenship: List[str] = Field(None)
     DeathDateTime: Union[str, None] = Field(None)
     DOB: Union[str, None] = Field(None)
@@ -78,14 +78,14 @@ class CensusQueryResponsePatientDemographics(RedoxAbstractModel):
     LastName: Union[str, None] = Field(None)
     MaritalStatus: Union[str, None] = Field(None)
     MiddleName: Union[str, None] = Field(None)
-    PhoneNumber: "CensusQueryResponsePatientDemographicsPhoneNumber" = Field(None)
+    PhoneNumber: "VisitQueryResponsePatientDemographicsPhoneNumber" = Field(None)
     Race: Union[str, None] = Field(None)
     Religion: Union[str, None] = Field(None)
     Sex: Union[str, None] = Field(None)
     SSN: Union[str, None] = Field(None)
 
 
-class CensusQueryResponsePatientDemographicsAddress(RedoxAbstractModel):
+class VisitQueryResponsePatientDemographicsAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -95,28 +95,30 @@ class CensusQueryResponsePatientDemographicsAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class CensusQueryResponsePatientDemographicsPhoneNumber(RedoxAbstractModel):
+class VisitQueryResponsePatientDemographicsPhoneNumber(RedoxAbstractModel):
 
     Home: Union[str, None] = Field(None)
     Mobile: Union[str, None] = Field(None)
     Office: Union[str, None] = Field(None)
 
 
-class CensusQueryResponsePatientIdentifier(RedoxAbstractModel):
+class VisitQueryResponsePatientIdentifier(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
 
 
-class CensusQueryResponsePatientVisit(RedoxAbstractModel):
+class VisitQueryResponsePatientVisit(RedoxAbstractModel):
 
-    Location: "CensusQueryResponsePatientVisitLocation" = Field(None)
+    Location: "VisitQueryResponsePatientVisitLocation" = Field(None)
     PatientClass: Union[str, None] = Field(None)
+    Reason: Union[str, None] = Field(None)
+    Status: Union[str, None] = Field(None)
     VisitDateTime: Union[str, None] = Field(None)
     VisitNumber: Union[str, None] = Field(None)
 
 
-class CensusQueryResponsePatientVisitLocation(RedoxAbstractModel):
+class VisitQueryResponsePatientVisitLocation(RedoxAbstractModel):
 
     Bed: Union[str, None] = Field(None)
     Department: Union[str, None] = Field(None)
@@ -125,8 +127,8 @@ class CensusQueryResponsePatientVisitLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-CensusQueryResponse.update_forward_refs()
-CensusQueryResponseMeta.update_forward_refs()
-CensusQueryResponsePatient.update_forward_refs()
-CensusQueryResponsePatientDemographics.update_forward_refs()
-CensusQueryResponsePatientVisit.update_forward_refs()
+VisitQueryResponse.update_forward_refs()
+VisitQueryResponseMeta.update_forward_refs()
+VisitQueryResponsePatient.update_forward_refs()
+VisitQueryResponsePatientDemographics.update_forward_refs()
+VisitQueryResponsePatientVisit.update_forward_refs()

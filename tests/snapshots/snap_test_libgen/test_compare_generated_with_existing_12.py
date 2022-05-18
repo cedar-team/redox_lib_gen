@@ -5,116 +5,116 @@ from typing import List, Union
 
 from pydantic import Field
 
+from ..abstract_base import EventTypeAbstractModel, RedoxAbstractModel
 from ..field_types import Number
-from ..redox_abstract_model import RedoxAbstractModel
 
 
-class Discharge(RedoxAbstractModel):
+class PreAdmit(EventTypeAbstractModel):
 
-    Meta: "DischargeMeta" = Field(...)
-    Patient: "DischargePatient" = Field(...)
-    Visit: "DischargeVisit" = Field(None)
+    Meta: "PreAdmitMeta" = Field(...)
+    Patient: "PreAdmitPatient" = Field(...)
+    Visit: "PreAdmitVisit" = Field(None)
 
 
-class DischargeMeta(RedoxAbstractModel):
+class PreAdmitMeta(RedoxAbstractModel):
 
     DataModel: str = Field(...)
-    Destinations: List["DischargeMetaDestination"] = Field(None)
+    Destinations: List["PreAdmitMetaDestination"] = Field(None)
     EventDateTime: Union[str, None] = Field(None)
     EventType: str = Field(...)
     FacilityCode: Union[str, None] = Field(None)
-    Logs: List["DischargeMetaLog"] = Field(None)
-    Message: "DischargeMetaMessage" = Field(None)
-    Source: "DischargeMetaSource" = Field(None)
+    Logs: List["PreAdmitMetaLog"] = Field(None)
+    Message: "PreAdmitMetaMessage" = Field(None)
+    Source: "PreAdmitMetaSource" = Field(None)
     Test: Union[bool, None] = Field(None)
-    Transmission: "DischargeMetaTransmission" = Field(None)
+    Transmission: "PreAdmitMetaTransmission" = Field(None)
 
 
-class DischargeMetaDestination(RedoxAbstractModel):
+class PreAdmitMetaDestination(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class DischargeMetaLog(RedoxAbstractModel):
+class PreAdmitMetaLog(RedoxAbstractModel):
 
     AttemptID: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
 
 
-class DischargeMetaMessage(RedoxAbstractModel):
+class PreAdmitMetaMessage(RedoxAbstractModel):
 
     ID: Union[Number, None] = Field(None)
 
 
-class DischargeMetaSource(RedoxAbstractModel):
+class PreAdmitMetaSource(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class DischargeMetaTransmission(RedoxAbstractModel):
+class PreAdmitMetaTransmission(RedoxAbstractModel):
 
     ID: Union[Number, None] = Field(None)
 
 
-class DischargePatient(RedoxAbstractModel):
+class PreAdmitPatient(RedoxAbstractModel):
 
-    Allergies: List["DischargePatientAllergy"] = Field(None)
-    Contacts: List["DischargePatientContact"] = Field(None)
-    Demographics: "DischargePatientDemographics" = Field(None)
-    Diagnoses: List["DischargePatientDiagnosis"] = Field(None)
-    Identifiers: List["DischargePatientIdentifier"] = Field(...)
+    Allergies: List["PreAdmitPatientAllergy"] = Field(None)
+    Contacts: List["PreAdmitPatientContact"] = Field(None)
+    Demographics: "PreAdmitPatientDemographics" = Field(None)
+    Diagnoses: List["PreAdmitPatientDiagnosis"] = Field(None)
+    Identifiers: List["PreAdmitPatientIdentifier"] = Field(...)
     Notes: List[str] = Field(None)
-    PCP: "DischargePatientPCP" = Field(None)
+    PCP: "PreAdmitPatientPCP" = Field(None)
 
 
-class DischargePatientAllergy(RedoxAbstractModel):
+class PreAdmitPatientAllergy(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     Codeset: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     OnsetDateTime: Union[str, None] = Field(None)
-    Reaction: List["DischargePatientAllergyReaction"] = Field(None)
-    Severity: "DischargePatientAllergySeverity" = Field(None)
+    Reaction: List["PreAdmitPatientAllergyReaction"] = Field(None)
+    Severity: "PreAdmitPatientAllergySeverity" = Field(None)
     Status: Union[str, None] = Field(None)
-    Type: "DischargePatientAllergyType" = Field(None)
+    Type: "PreAdmitPatientAllergyType" = Field(None)
 
 
-class DischargePatientAllergyReaction(RedoxAbstractModel):
-
-    Code: Union[str, None] = Field(None)
-    Codeset: Union[str, None] = Field(None)
-    Name: Union[str, None] = Field(None)
-
-
-class DischargePatientAllergySeverity(RedoxAbstractModel):
+class PreAdmitPatientAllergyReaction(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     Codeset: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class DischargePatientAllergyType(RedoxAbstractModel):
+class PreAdmitPatientAllergySeverity(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     Codeset: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class DischargePatientContact(RedoxAbstractModel):
+class PreAdmitPatientAllergyType(RedoxAbstractModel):
 
-    Address: "DischargePatientContactAddress" = Field(None)
+    Code: Union[str, None] = Field(None)
+    Codeset: Union[str, None] = Field(None)
+    Name: Union[str, None] = Field(None)
+
+
+class PreAdmitPatientContact(RedoxAbstractModel):
+
+    Address: "PreAdmitPatientContactAddress" = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
     MiddleName: Union[str, None] = Field(None)
-    PhoneNumber: "DischargePatientContactPhoneNumber" = Field(None)
+    PhoneNumber: "PreAdmitPatientContactPhoneNumber" = Field(None)
     RelationToPatient: Union[str, None] = Field(None)
     Roles: List[str] = Field(None)
 
 
-class DischargePatientContactAddress(RedoxAbstractModel):
+class PreAdmitPatientContactAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -124,16 +124,16 @@ class DischargePatientContactAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargePatientContactPhoneNumber(RedoxAbstractModel):
+class PreAdmitPatientContactPhoneNumber(RedoxAbstractModel):
 
     Home: Union[str, None] = Field(None)
     Mobile: Union[str, None] = Field(None)
     Office: Union[str, None] = Field(None)
 
 
-class DischargePatientDemographics(RedoxAbstractModel):
+class PreAdmitPatientDemographics(RedoxAbstractModel):
 
-    Address: "DischargePatientDemographicsAddress" = Field(None)
+    Address: "PreAdmitPatientDemographicsAddress" = Field(None)
     Citizenship: List[str] = Field(None)
     DeathDateTime: Union[str, None] = Field(None)
     DOB: Union[str, None] = Field(None)
@@ -145,14 +145,14 @@ class DischargePatientDemographics(RedoxAbstractModel):
     LastName: Union[str, None] = Field(None)
     MaritalStatus: Union[str, None] = Field(None)
     MiddleName: Union[str, None] = Field(None)
-    PhoneNumber: "DischargePatientDemographicsPhoneNumber" = Field(None)
+    PhoneNumber: "PreAdmitPatientDemographicsPhoneNumber" = Field(None)
     Race: Union[str, None] = Field(None)
     Religion: Union[str, None] = Field(None)
     Sex: Union[str, None] = Field(None)
     SSN: Union[str, None] = Field(None)
 
 
-class DischargePatientDemographicsAddress(RedoxAbstractModel):
+class PreAdmitPatientDemographicsAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -162,14 +162,14 @@ class DischargePatientDemographicsAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargePatientDemographicsPhoneNumber(RedoxAbstractModel):
+class PreAdmitPatientDemographicsPhoneNumber(RedoxAbstractModel):
 
     Home: Union[str, None] = Field(None)
     Mobile: Union[str, None] = Field(None)
     Office: Union[str, None] = Field(None)
 
 
-class DischargePatientDiagnosis(RedoxAbstractModel):
+class PreAdmitPatientDiagnosis(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     Codeset: Union[str, None] = Field(None)
@@ -178,27 +178,27 @@ class DischargePatientDiagnosis(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class DischargePatientIdentifier(RedoxAbstractModel):
+class PreAdmitPatientIdentifier(RedoxAbstractModel):
 
     ID: str = Field(...)
     IDType: str = Field(...)
 
 
-class DischargePatientPCP(RedoxAbstractModel):
+class PreAdmitPatientPCP(RedoxAbstractModel):
 
-    Address: "DischargePatientPCPAddress" = Field(None)
+    Address: "PreAdmitPatientPCPAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "DischargePatientPCPLocation" = Field(None)
+    Location: "PreAdmitPatientPCPLocation" = Field(None)
     NPI: Union[str, None] = Field(None)
-    PhoneNumber: "DischargePatientPCPPhoneNumber" = Field(None)
+    PhoneNumber: "PreAdmitPatientPCPPhoneNumber" = Field(None)
 
 
-class DischargePatientPCPAddress(RedoxAbstractModel):
+class PreAdmitPatientPCPAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -208,7 +208,7 @@ class DischargePatientPCPAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargePatientPCPLocation(RedoxAbstractModel):
+class PreAdmitPatientPCPLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -216,51 +216,48 @@ class DischargePatientPCPLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class DischargePatientPCPPhoneNumber(RedoxAbstractModel):
+class PreAdmitPatientPCPPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-class DischargeVisit(RedoxAbstractModel):
+class PreAdmitVisit(RedoxAbstractModel):
 
     AccountNumber: Union[str, None] = Field(None)
-    AdditionalStaff: List["DischargeVisitAdditionalStaff"] = Field(None)
-    AdmittingProvider: "DischargeVisitAdmittingProvider" = Field(None)
-    AttendingProvider: "DischargeVisitAttendingProvider" = Field(None)
+    AdditionalStaff: List["PreAdmitVisitAdditionalStaff"] = Field(None)
+    AdmittingProvider: "PreAdmitVisitAdmittingProvider" = Field(None)
+    AttendingProvider: "PreAdmitVisitAttendingProvider" = Field(None)
     Balance: Union[Number, None] = Field(None)
-    ConsultingProvider: "DischargeVisitConsultingProvider" = Field(None)
+    ConsultingProvider: "PreAdmitVisitConsultingProvider" = Field(None)
     DiagnosisRelatedGroup: Union[Number, None] = Field(None)
     DiagnosisRelatedGroupType: Union[Number, None] = Field(None)
-    DischargeDateTime: Union[str, None] = Field(None)
-    DischargeLocation: "DischargeVisitDischargeLocation" = Field(None)
-    DischargeStatus: "DischargeVisitDischargeStatus" = Field(None)
     Duration: Union[Number, None] = Field(None)
-    Guarantor: "DischargeVisitGuarantor" = Field(None)
+    Guarantor: "PreAdmitVisitGuarantor" = Field(None)
     Instructions: List[str] = Field(None)
-    Insurances: List["DischargeVisitInsurance"] = Field(None)
-    Location: "DischargeVisitLocation" = Field(None)
+    Insurances: List["PreAdmitVisitInsurance"] = Field(None)
+    Location: "PreAdmitVisitLocation" = Field(None)
     PatientClass: Union[str, None] = Field(None)
     Reason: Union[str, None] = Field(None)
-    ReferringProvider: "DischargeVisitReferringProvider" = Field(None)
+    ReferringProvider: "PreAdmitVisitReferringProvider" = Field(None)
     VisitDateTime: Union[str, None] = Field(None)
     VisitNumber: Union[str, None] = Field(None)
 
 
-class DischargeVisitAdditionalStaff(RedoxAbstractModel):
+class PreAdmitVisitAdditionalStaff(RedoxAbstractModel):
 
-    Address: "DischargeVisitAdditionalStaffAddress" = Field(None)
+    Address: "PreAdmitVisitAdditionalStaffAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "DischargeVisitAdditionalStaffLocation" = Field(None)
-    PhoneNumber: "DischargeVisitAdditionalStaffPhoneNumber" = Field(None)
-    Role: "DischargeVisitAdditionalStaffRole" = Field(None)
+    Location: "PreAdmitVisitAdditionalStaffLocation" = Field(None)
+    PhoneNumber: "PreAdmitVisitAdditionalStaffPhoneNumber" = Field(None)
+    Role: "PreAdmitVisitAdditionalStaffRole" = Field(None)
 
 
-class DischargeVisitAdditionalStaffAddress(RedoxAbstractModel):
+class PreAdmitVisitAdditionalStaffAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -270,7 +267,7 @@ class DischargeVisitAdditionalStaffAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitAdditionalStaffLocation(RedoxAbstractModel):
+class PreAdmitVisitAdditionalStaffLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -278,32 +275,32 @@ class DischargeVisitAdditionalStaffLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class DischargeVisitAdditionalStaffPhoneNumber(RedoxAbstractModel):
+class PreAdmitVisitAdditionalStaffPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-class DischargeVisitAdditionalStaffRole(RedoxAbstractModel):
+class PreAdmitVisitAdditionalStaffRole(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     Codeset: Union[str, None] = Field(None)
     Description: Union[str, None] = Field(None)
 
 
-class DischargeVisitAdmittingProvider(RedoxAbstractModel):
+class PreAdmitVisitAdmittingProvider(RedoxAbstractModel):
 
-    Address: "DischargeVisitAdmittingProviderAddress" = Field(None)
+    Address: "PreAdmitVisitAdmittingProviderAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "DischargeVisitAdmittingProviderLocation" = Field(None)
-    PhoneNumber: "DischargeVisitAdmittingProviderPhoneNumber" = Field(None)
+    Location: "PreAdmitVisitAdmittingProviderLocation" = Field(None)
+    PhoneNumber: "PreAdmitVisitAdmittingProviderPhoneNumber" = Field(None)
 
 
-class DischargeVisitAdmittingProviderAddress(RedoxAbstractModel):
+class PreAdmitVisitAdmittingProviderAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -313,7 +310,7 @@ class DischargeVisitAdmittingProviderAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitAdmittingProviderLocation(RedoxAbstractModel):
+class PreAdmitVisitAdmittingProviderLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -321,25 +318,25 @@ class DischargeVisitAdmittingProviderLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class DischargeVisitAdmittingProviderPhoneNumber(RedoxAbstractModel):
+class PreAdmitVisitAdmittingProviderPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-class DischargeVisitAttendingProvider(RedoxAbstractModel):
+class PreAdmitVisitAttendingProvider(RedoxAbstractModel):
 
-    Address: "DischargeVisitAttendingProviderAddress" = Field(None)
+    Address: "PreAdmitVisitAttendingProviderAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "DischargeVisitAttendingProviderLocation" = Field(None)
-    PhoneNumber: "DischargeVisitAttendingProviderPhoneNumber" = Field(None)
+    Location: "PreAdmitVisitAttendingProviderLocation" = Field(None)
+    PhoneNumber: "PreAdmitVisitAttendingProviderPhoneNumber" = Field(None)
 
 
-class DischargeVisitAttendingProviderAddress(RedoxAbstractModel):
+class PreAdmitVisitAttendingProviderAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -349,7 +346,7 @@ class DischargeVisitAttendingProviderAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitAttendingProviderLocation(RedoxAbstractModel):
+class PreAdmitVisitAttendingProviderLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -357,25 +354,25 @@ class DischargeVisitAttendingProviderLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class DischargeVisitAttendingProviderPhoneNumber(RedoxAbstractModel):
+class PreAdmitVisitAttendingProviderPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-class DischargeVisitConsultingProvider(RedoxAbstractModel):
+class PreAdmitVisitConsultingProvider(RedoxAbstractModel):
 
-    Address: "DischargeVisitConsultingProviderAddress" = Field(None)
+    Address: "PreAdmitVisitConsultingProviderAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "DischargeVisitConsultingProviderLocation" = Field(None)
-    PhoneNumber: "DischargeVisitConsultingProviderPhoneNumber" = Field(None)
+    Location: "PreAdmitVisitConsultingProviderLocation" = Field(None)
+    PhoneNumber: "PreAdmitVisitConsultingProviderPhoneNumber" = Field(None)
 
 
-class DischargeVisitConsultingProviderAddress(RedoxAbstractModel):
+class PreAdmitVisitConsultingProviderAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -385,7 +382,7 @@ class DischargeVisitConsultingProviderAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitConsultingProviderLocation(RedoxAbstractModel):
+class PreAdmitVisitConsultingProviderLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -393,45 +390,30 @@ class DischargeVisitConsultingProviderLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class DischargeVisitConsultingProviderPhoneNumber(RedoxAbstractModel):
+class PreAdmitVisitConsultingProviderPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-class DischargeVisitDischargeLocation(RedoxAbstractModel):
+class PreAdmitVisitGuarantor(RedoxAbstractModel):
 
-    Department: Union[str, None] = Field(None)
-    Facility: Union[str, None] = Field(None)
-    Room: Union[str, None] = Field(None)
-    Type: Union[str, None] = Field(None)
-
-
-class DischargeVisitDischargeStatus(RedoxAbstractModel):
-
-    Code: Union[str, None] = Field(None)
-    Codeset: Union[str, None] = Field(None)
-    Description: Union[str, None] = Field(None)
-
-
-class DischargeVisitGuarantor(RedoxAbstractModel):
-
-    Address: "DischargeVisitGuarantorAddress" = Field(None)
+    Address: "PreAdmitVisitGuarantorAddress" = Field(None)
     DOB: Union[str, None] = Field(None)
     EmailAddresses: List[str] = Field(None)
-    Employer: "DischargeVisitGuarantorEmployer" = Field(None)
+    Employer: "PreAdmitVisitGuarantorEmployer" = Field(None)
     FirstName: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
     MiddleName: Union[str, None] = Field(None)
     Number: Union[str, None] = Field(None)
-    PhoneNumber: "DischargeVisitGuarantorPhoneNumber" = Field(None)
+    PhoneNumber: "PreAdmitVisitGuarantorPhoneNumber" = Field(None)
     RelationToPatient: Union[str, None] = Field(None)
     Sex: Union[str, None] = Field(None)
-    Spouse: "DischargeVisitGuarantorSpouse" = Field(None)
+    Spouse: "PreAdmitVisitGuarantorSpouse" = Field(None)
     SSN: Union[str, None] = Field(None)
     Type: Union[str, None] = Field(None)
 
 
-class DischargeVisitGuarantorAddress(RedoxAbstractModel):
+class PreAdmitVisitGuarantorAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -441,14 +423,14 @@ class DischargeVisitGuarantorAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitGuarantorEmployer(RedoxAbstractModel):
+class PreAdmitVisitGuarantorEmployer(RedoxAbstractModel):
 
-    Address: "DischargeVisitGuarantorEmployerAddress" = Field(None)
+    Address: "PreAdmitVisitGuarantorEmployerAddress" = Field(None)
     Name: Union[str, None] = Field(None)
     PhoneNumber: Union[str, None] = Field(None)
 
 
-class DischargeVisitGuarantorEmployerAddress(RedoxAbstractModel):
+class PreAdmitVisitGuarantorEmployerAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -458,45 +440,45 @@ class DischargeVisitGuarantorEmployerAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitGuarantorPhoneNumber(RedoxAbstractModel):
+class PreAdmitVisitGuarantorPhoneNumber(RedoxAbstractModel):
 
     Business: Union[str, None] = Field(None)
     Home: Union[str, None] = Field(None)
     Mobile: Union[str, None] = Field(None)
 
 
-class DischargeVisitGuarantorSpouse(RedoxAbstractModel):
+class PreAdmitVisitGuarantorSpouse(RedoxAbstractModel):
 
     FirstName: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
 
 
-class DischargeVisitInsurance(RedoxAbstractModel):
+class PreAdmitVisitInsurance(RedoxAbstractModel):
 
     AgreementType: Union[str, None] = Field(None)
-    Company: "DischargeVisitInsuranceCompany" = Field(None)
+    Company: "PreAdmitVisitInsuranceCompany" = Field(None)
     CoverageType: Union[str, None] = Field(None)
     EffectiveDate: Union[str, None] = Field(None)
     ExpirationDate: Union[str, None] = Field(None)
     GroupName: Union[str, None] = Field(None)
     GroupNumber: Union[str, None] = Field(None)
-    Insured: "DischargeVisitInsuranceInsured" = Field(None)
+    Insured: "PreAdmitVisitInsuranceInsured" = Field(None)
     MemberNumber: Union[str, None] = Field(None)
-    Plan: "DischargeVisitInsurancePlan" = Field(None)
+    Plan: "PreAdmitVisitInsurancePlan" = Field(None)
     PolicyNumber: Union[str, None] = Field(None)
     Priority: Union[str, None] = Field(None)
 
 
-class DischargeVisitInsuranceCompany(RedoxAbstractModel):
+class PreAdmitVisitInsuranceCompany(RedoxAbstractModel):
 
-    Address: "DischargeVisitInsuranceCompanyAddress" = Field(None)
+    Address: "PreAdmitVisitInsuranceCompanyAddress" = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     PhoneNumber: Union[str, None] = Field(None)
 
 
-class DischargeVisitInsuranceCompanyAddress(RedoxAbstractModel):
+class PreAdmitVisitInsuranceCompanyAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -506,12 +488,12 @@ class DischargeVisitInsuranceCompanyAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitInsuranceInsured(RedoxAbstractModel):
+class PreAdmitVisitInsuranceInsured(RedoxAbstractModel):
 
-    Address: "DischargeVisitInsuranceInsuredAddress" = Field(None)
+    Address: "PreAdmitVisitInsuranceInsuredAddress" = Field(None)
     DOB: Union[str, None] = Field(None)
     FirstName: Union[str, None] = Field(None)
-    Identifiers: List["DischargeVisitInsuranceInsuredIdentifier"] = Field(None)
+    Identifiers: List["PreAdmitVisitInsuranceInsuredIdentifier"] = Field(None)
     LastName: Union[str, None] = Field(None)
     MiddleName: Union[str, None] = Field(None)
     Relationship: Union[str, None] = Field(None)
@@ -519,7 +501,7 @@ class DischargeVisitInsuranceInsured(RedoxAbstractModel):
     SSN: Union[str, None] = Field(None)
 
 
-class DischargeVisitInsuranceInsuredAddress(RedoxAbstractModel):
+class PreAdmitVisitInsuranceInsuredAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -529,13 +511,13 @@ class DischargeVisitInsuranceInsuredAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitInsuranceInsuredIdentifier(RedoxAbstractModel):
+class PreAdmitVisitInsuranceInsuredIdentifier(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
 
 
-class DischargeVisitInsurancePlan(RedoxAbstractModel):
+class PreAdmitVisitInsurancePlan(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
@@ -543,9 +525,9 @@ class DischargeVisitInsurancePlan(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class DischargeVisitLocation(RedoxAbstractModel):
+class PreAdmitVisitLocation(RedoxAbstractModel):
 
-    Address: "DischargeVisitLocationAddress" = Field(None)
+    Address: "PreAdmitVisitLocationAddress" = Field(None)
     Bed: Union[str, None] = Field(None)
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -553,7 +535,7 @@ class DischargeVisitLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class DischargeVisitLocationAddress(RedoxAbstractModel):
+class PreAdmitVisitLocationAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -563,20 +545,20 @@ class DischargeVisitLocationAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitReferringProvider(RedoxAbstractModel):
+class PreAdmitVisitReferringProvider(RedoxAbstractModel):
 
-    Address: "DischargeVisitReferringProviderAddress" = Field(None)
+    Address: "PreAdmitVisitReferringProviderAddress" = Field(None)
     Credentials: List[str] = Field(None)
     EmailAddresses: List[str] = Field(None)
     FirstName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     IDType: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
-    Location: "DischargeVisitReferringProviderLocation" = Field(None)
-    PhoneNumber: "DischargeVisitReferringProviderPhoneNumber" = Field(None)
+    Location: "PreAdmitVisitReferringProviderLocation" = Field(None)
+    PhoneNumber: "PreAdmitVisitReferringProviderPhoneNumber" = Field(None)
 
 
-class DischargeVisitReferringProviderAddress(RedoxAbstractModel):
+class PreAdmitVisitReferringProviderAddress(RedoxAbstractModel):
 
     City: Union[str, None] = Field(None)
     Country: Union[str, None] = Field(None)
@@ -586,7 +568,7 @@ class DischargeVisitReferringProviderAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
-class DischargeVisitReferringProviderLocation(RedoxAbstractModel):
+class PreAdmitVisitReferringProviderLocation(RedoxAbstractModel):
 
     Department: Union[str, None] = Field(None)
     Facility: Union[str, None] = Field(None)
@@ -594,27 +576,27 @@ class DischargeVisitReferringProviderLocation(RedoxAbstractModel):
     Type: Union[str, None] = Field(None)
 
 
-class DischargeVisitReferringProviderPhoneNumber(RedoxAbstractModel):
+class PreAdmitVisitReferringProviderPhoneNumber(RedoxAbstractModel):
 
     Office: Union[str, None] = Field(None)
 
 
-Discharge.update_forward_refs()
-DischargeMeta.update_forward_refs()
-DischargePatient.update_forward_refs()
-DischargePatientAllergy.update_forward_refs()
-DischargePatientContact.update_forward_refs()
-DischargePatientDemographics.update_forward_refs()
-DischargePatientPCP.update_forward_refs()
-DischargeVisit.update_forward_refs()
-DischargeVisitAdditionalStaff.update_forward_refs()
-DischargeVisitAdmittingProvider.update_forward_refs()
-DischargeVisitAttendingProvider.update_forward_refs()
-DischargeVisitConsultingProvider.update_forward_refs()
-DischargeVisitGuarantor.update_forward_refs()
-DischargeVisitGuarantorEmployer.update_forward_refs()
-DischargeVisitInsurance.update_forward_refs()
-DischargeVisitInsuranceCompany.update_forward_refs()
-DischargeVisitInsuranceInsured.update_forward_refs()
-DischargeVisitLocation.update_forward_refs()
-DischargeVisitReferringProvider.update_forward_refs()
+PreAdmit.update_forward_refs()
+PreAdmitMeta.update_forward_refs()
+PreAdmitPatient.update_forward_refs()
+PreAdmitPatientAllergy.update_forward_refs()
+PreAdmitPatientContact.update_forward_refs()
+PreAdmitPatientDemographics.update_forward_refs()
+PreAdmitPatientPCP.update_forward_refs()
+PreAdmitVisit.update_forward_refs()
+PreAdmitVisitAdditionalStaff.update_forward_refs()
+PreAdmitVisitAdmittingProvider.update_forward_refs()
+PreAdmitVisitAttendingProvider.update_forward_refs()
+PreAdmitVisitConsultingProvider.update_forward_refs()
+PreAdmitVisitGuarantor.update_forward_refs()
+PreAdmitVisitGuarantorEmployer.update_forward_refs()
+PreAdmitVisitInsurance.update_forward_refs()
+PreAdmitVisitInsuranceCompany.update_forward_refs()
+PreAdmitVisitInsuranceInsured.update_forward_refs()
+PreAdmitVisitLocation.update_forward_refs()
+PreAdmitVisitReferringProvider.update_forward_refs()

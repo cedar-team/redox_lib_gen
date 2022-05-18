@@ -5,11 +5,11 @@ from typing import List, Union
 
 from pydantic import Field
 
+from ..abstract_base import EventTypeAbstractModel, RedoxAbstractModel
 from ..field_types import Number
-from ..redox_abstract_model import RedoxAbstractModel
 
 
-class VisitQuery(RedoxAbstractModel):
+class VisitQuery(EventTypeAbstractModel):
 
     Departments: List[str] = Field(None)
     Facilities: List[str] = Field(None)
