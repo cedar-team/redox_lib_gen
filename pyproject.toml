@@ -12,6 +12,8 @@ requests = "^2.27.1"
 retry2 = "^0.9.3"
 inflection = "^0.5.1"
 Jinja2 = "^3"
+tox = "^3.25.0"
+coveralls = "^3.3.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
@@ -32,3 +34,22 @@ known_third_party = ["click", "gen_helpers", "inflection", "jinja2", "pydantic",
 multi_line_output = 3
 profile = "black"
 combine_as_imports = true
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+isolated_build = True
+envlist = py310
+skip_missing_interpreters = True
+
+[tox:.package]
+basepython = python3
+
+[testenv]
+deps =
+    pytest
+    coveralls
+    snapshottest
+commands =
+    coverage run --source redox_lib_gen -m pytest
+"""
