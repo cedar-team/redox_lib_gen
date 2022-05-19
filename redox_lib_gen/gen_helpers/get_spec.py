@@ -5,6 +5,8 @@ from zipfile import BadZipFile, ZipFile
 import click
 import requests
 from requests import HTTPError
+
+# noinspection PyPackageRequirements
 from retry import retry
 
 from .utils import rmrf
@@ -30,7 +32,11 @@ def _download(spec_url: str, spec_zip: Path, force_download: bool):
     if force_download or not spec_zip.exists():
         click.echo(f"Downloading Redox spec from {spec_url}...", nl=False)
         schemas = requests.get(
-            spec_url, headers={"Accept-Encoding": "gzip, deflate, br"}
+            spec_url,
+            headers={
+                "Accept-Encoding": "gzip, deflate, br",
+                "User-Agent": "PostmanRuntime/7.29.0",
+            },
         )
         try:
             schemas.raise_for_status()

@@ -11,7 +11,7 @@ from requests import HTTPError
 SPEC_URL = "https://developer.redoxengine.com/data-models/schemas.zip"
 PARENT_DIR = Path(__file__).parent.resolve()
 CACHE_DIR = PARENT_DIR / "cache"
-LIB_DEST_DIR = (PARENT_DIR / ".." / "pyredox").resolve()
+LIB_DEST_DIR = (PARENT_DIR / ".." / ".." / "pyredox" / "pyredox").resolve()
 TEMPLATE_DIR = PARENT_DIR / "templates"
 DEFAULT_DIRS_TO_GENERATE = ["patientadmin", "scheduling"]
 
