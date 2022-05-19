@@ -49,6 +49,8 @@ deps =
     pytest
     coveralls
     snapshottest
+    black
+    isort
 commands =
     coverage run --source redox_lib_gen -m pytest
 """
