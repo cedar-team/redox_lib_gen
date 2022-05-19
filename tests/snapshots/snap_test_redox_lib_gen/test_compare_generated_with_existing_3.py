@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # flake8: noqa: F01
 from .arrival import Arrival
 from .cancel import Cancel

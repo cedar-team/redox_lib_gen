@@ -40,7 +40,6 @@ legacy_tox_ini = """
 [tox]
 isolated_build = True
 envlist = py310
-skip_missing_interpreters = True
 
 [tox:.package]
 basepython = python3
@@ -50,6 +49,8 @@ deps =
     pytest
     coveralls
     snapshottest
+    black
+    isort
 commands =
     coverage run --source redox_lib_gen -m pytest
 """

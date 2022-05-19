@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from collections import defaultdict
 from pathlib import Path
-from typing import DefaultDict, Generator, List, Optional, Union
+from typing import DefaultDict, Generator, List, Union
 
 from .empty_klass import EMPTY_KLASS_DEF
 from .types import ImportMapping, KlassDefinition, TemplateInfo
 
 
 class CommonKlassKeeper:
-    def __init__(self, output_filename: Optional[Union[str, Path]] = None):
+    def __init__(self, output_filename: Union[str, Path, None] = None):
         self.template_filename = output_filename or "common_types.py"
         self._klass_defs: DefaultDict[str, KlassDefinition] = defaultdict(
             EMPTY_KLASS_DEF
