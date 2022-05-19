@@ -3,7 +3,7 @@ from functools import reduce
 from operator import add
 from pathlib import Path
 from subprocess import run
-from typing import Collection, List, Optional
+from typing import Collection, List, Optional, Union
 
 from .types import ImportMapping, KlassPropertyType, PropertyTypeInfo
 
@@ -49,7 +49,7 @@ def rmrf(
             raise
 
 
-def get_property_type(type_str: str | List[str]) -> PropertyTypeInfo:
+def get_property_type(type_str: Union[str, List[str]]) -> PropertyTypeInfo:
     """Translate the str of a JSON schema type field to a Python typehint."""
 
     if isinstance(type_str, list):

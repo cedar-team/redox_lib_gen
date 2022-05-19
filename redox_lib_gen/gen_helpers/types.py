@@ -6,7 +6,7 @@ from enum import Enum
 from functools import total_ordering
 from itertools import chain
 from pathlib import Path
-from typing import DefaultDict, Generator, List, Optional
+from typing import DefaultDict, Generator, List, Optional, Union
 
 from .empty_klass import EMPTY_KLASS_DEF, EMPTY_KLASS_PROPERTY
 
@@ -259,7 +259,7 @@ class KlassDefinition:
     has_forward_refs: bool = False  # Is True if any properties are of type SCHEMA
     is_event_type: bool = False
     _prop_map: DefaultDict[
-        str, KlassPropertySignatureInfo | EMPTY_KLASS_PROPERTY
+        str, Union[KlassPropertySignatureInfo, EMPTY_KLASS_PROPERTY]
     ] = None
 
     @property
