@@ -1,0 +1,19 @@
+on: [pull_request]
+jobs:
+  run-tests-get-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+          cache: 'poetry'
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+      - name: Set up poetry virtualenv
+        run: poetry install
+      - name: Run tests
+        run: poetry run tox
