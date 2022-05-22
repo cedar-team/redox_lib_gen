@@ -164,13 +164,13 @@ class DeconstructedType:
                 return DeconstructedType(KlassPropertyType.UNION, self.types | {other})
 
         elif other.property_type is KlassPropertyType.UNION:
-            # Just try to add the native type in self to the set of types already
-            # in other.
-            return DeconstructedType(KlassPropertyType.UNION, self.types | other.types)
+            # Just try to add self (which is already a native type) to the set of types
+            # already in other's types.
+            return DeconstructedType(KlassPropertyType.UNION, {self} | other.types)
 
         elif other.property_type is KlassPropertyType.SCHEMA:
             # Union[type1, SchemaType2]
-            return DeconstructedType(KlassPropertyType.UNION, self.types | other.types)
+            return DeconstructedType(KlassPropertyType.UNION, {self} | {other})
 
     def __or_list(self, other: "DeconstructedType") -> "DeconstructedType":
         if other.property_type is KlassPropertyType.NATIVE:

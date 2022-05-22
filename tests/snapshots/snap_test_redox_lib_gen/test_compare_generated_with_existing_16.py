@@ -9,71 +9,71 @@ from ..abstract_base import EventTypeAbstractModel, RedoxAbstractModel
 from ..field_types import Number
 
 
-class VisitQuery(EventTypeAbstractModel):
+class PatientQuery(EventTypeAbstractModel):
 
-    Departments: List[str] = Field(None)
-    Facilities: List[str] = Field(None)
-    Meta: "VisitQueryMeta" = Field(...)
-    PatientClasses: List[str] = Field(None)
-    Patients: List["VisitQueryPatient"] = Field(None)
-    VisitNumbers: List[str] = Field(None)
-    VisitStartDateTime: Union[str, None] = Field(None)
-    VisitStatuses: List[str] = Field(None)
+    Location: "PatientQueryLocation" = Field(None)
+    Meta: "PatientQueryMeta" = Field(...)
+    Patient: "PatientQueryPatient" = Field(...)
 
 
-class VisitQueryMeta(RedoxAbstractModel):
+class PatientQueryLocation(RedoxAbstractModel):
+
+    Department: Union[str, None] = Field(None)
+
+
+class PatientQueryMeta(RedoxAbstractModel):
 
     DataModel: str = Field(...)
-    Destinations: List["VisitQueryMetaDestination"] = Field(None)
+    Destinations: List["PatientQueryMetaDestination"] = Field(None)
     EventDateTime: Union[str, None] = Field(None)
     EventType: str = Field(...)
     FacilityCode: Union[str, None] = Field(None)
-    Logs: List["VisitQueryMetaLog"] = Field(None)
-    Message: "VisitQueryMetaMessage" = Field(None)
-    Source: "VisitQueryMetaSource" = Field(None)
+    Logs: List["PatientQueryMetaLog"] = Field(None)
+    Message: "PatientQueryMetaMessage" = Field(None)
+    Source: "PatientQueryMetaSource" = Field(None)
     Test: Union[bool, None] = Field(None)
-    Transmission: "VisitQueryMetaTransmission" = Field(None)
+    Transmission: "PatientQueryMetaTransmission" = Field(None)
 
 
-class VisitQueryMetaDestination(RedoxAbstractModel):
+class PatientQueryMetaDestination(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class VisitQueryMetaLog(RedoxAbstractModel):
+class PatientQueryMetaLog(RedoxAbstractModel):
 
     AttemptID: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
 
 
-class VisitQueryMetaMessage(RedoxAbstractModel):
+class PatientQueryMetaMessage(RedoxAbstractModel):
 
     ID: Union[Number, None] = Field(None)
 
 
-class VisitQueryMetaSource(RedoxAbstractModel):
+class PatientQueryMetaSource(RedoxAbstractModel):
 
     ID: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
 
-class VisitQueryMetaTransmission(RedoxAbstractModel):
+class PatientQueryMetaTransmission(RedoxAbstractModel):
 
     ID: Union[Number, None] = Field(None)
 
 
-class VisitQueryPatient(RedoxAbstractModel):
+class PatientQueryPatient(RedoxAbstractModel):
 
-    Identifiers: List["VisitQueryPatientIdentifier"] = Field(None)
-
-
-class VisitQueryPatientIdentifier(RedoxAbstractModel):
-
-    ID: Union[str, None] = Field(None)
-    IDType: Union[str, None] = Field(None)
+    Identifiers: List["PatientQueryPatientIdentifier"] = Field(...)
 
 
-VisitQuery.update_forward_refs()
-VisitQueryMeta.update_forward_refs()
-VisitQueryPatient.update_forward_refs()
+class PatientQueryPatientIdentifier(RedoxAbstractModel):
+
+    ID: str = Field(...)
+    IDType: str = Field(...)
+
+
+PatientQuery.update_forward_refs()
+PatientQueryMeta.update_forward_refs()
+PatientQueryPatient.update_forward_refs()
