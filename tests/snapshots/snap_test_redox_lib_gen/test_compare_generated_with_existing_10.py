@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# flake8: noqa: F01
+# flake8: noqa: F401
 from .documentget import DocumentGet
 from .documentgetresponse import DocumentGetResponse
 from .documentquery import DocumentQuery

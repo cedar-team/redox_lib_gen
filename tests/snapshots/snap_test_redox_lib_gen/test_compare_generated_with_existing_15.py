@@ -775,12 +775,14 @@ class PatientPushHeaderPatient(RedoxAbstractModel):
 class PatientPushHeaderPatientDemographics(RedoxAbstractModel):
 
     Address: "PatientPushHeaderPatientDemographicsAddress" = Field(None)
+    DeathDateTime: Union[str, None] = Field(None)
     DOB: Union[str, None] = Field(None)
     EmailAddresses: List["PatientPushHeaderPatientDemographicsEmailAddress"] = Field(
         None
     )
     Ethnicity: Union[str, None] = Field(None)
     FirstName: Union[str, None] = Field(None)
+    IsDeceased: Union[bool, None] = Field(None)
     Language: Union[str, None] = Field(None)
     LastName: Union[str, None] = Field(None)
     MaritalStatus: Union[str, None] = Field(None)

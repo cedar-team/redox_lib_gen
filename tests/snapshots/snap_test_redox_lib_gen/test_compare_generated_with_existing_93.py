@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# flake8: noqa: F01
+# flake8: noqa: F401
 from .authresponse import AuthResponse
 from .authreview import AuthReview
 from .cancel import Cancel

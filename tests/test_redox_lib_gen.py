@@ -6,9 +6,9 @@ import pytest
 from snapshottest.file import FileSnapshot
 
 import redox_lib_gen
+from redox_lib_gen.utils import temp_chdir
 
 from .no_spaces import NoSpacesPyTestSnapshotTest
-from .utils import temp_chdir
 
 
 def test_version():

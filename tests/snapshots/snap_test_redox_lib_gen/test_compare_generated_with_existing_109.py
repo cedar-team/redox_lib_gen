@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# flake8: noqa: F01
+# flake8: noqa: F401
 from .availableslots import AvailableSlots
 from .availableslotsresponse import AvailableSlotsResponse
 from .booked import Booked
