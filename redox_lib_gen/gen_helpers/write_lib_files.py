@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
-from typing import Callable, Generator, List, Optional
+from typing import Callable, Iterator, List, Optional
 
 import click
-from jinja2 import Environment, FileSystemLoader, Template, select_autoescape
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from .common_klasses import CommonKlassKeeper
 from .parse_spec import parse_and_build_models
@@ -21,7 +21,6 @@ def process_files(
         trim_blocks=True,
         lstrip_blocks=True,
     )
-    template = jinja_env.get_template("template-resource.jinja2")
 
     commons = CommonKlassKeeper()
 
@@ -45,7 +44,7 @@ def process_files(
             )
             write_py_files(
                 lib_dest_dir=dst,
-                template=template,
+                jinja_env=jinja_env,
                 progressbar_updater=update_bar,
                 template_info_generator=commons.store_and_yield_templates(
                     parsed_generator
@@ -54,7 +53,7 @@ def process_files(
 
     click.echo(f"Generating common types file in {commons.template_filename}")
     write_py_files(
-        lib_dest_dir=dst, template=template, template_info_generator=commons.template
+        lib_dest_dir=dst, jinja_env=jinja_env, template_info_generator=commons.template
     )
 
     click.echo("Done")
@@ -63,21 +62,23 @@ def process_files(
 
 def write_py_files(
     lib_dest_dir: Path,
-    template: Template,
-    template_info_generator: Generator[TemplateInfo, None, None],
+    jinja_env: Environment,
+    template_info_generator: Iterator[TemplateInfo],
     progressbar_updater: Optional[Callable] = lambda _: None,
 ):
     """Write the generated files for a single directory.
 
     :param lib_dest_dir: The directory where the generated library Python files
         will be written.
-    :param template: The Jinja2 template to use for generating the Python files.
+    :param jinja_env: The Jinja2 environment that can load the appropriate
+        template for each ``TemplateInfo`` object.
     :param template_info_generator:
     :param progressbar_updater: A function for updating the progress on writing
         the generated files. Should take a filename string as the only argument.
     """
 
     for template_info in template_info_generator:
+        template = jinja_env.get_template(template_info.jinja_template_file_name)
         with open(
             lib_dest_dir / template_info.dir_name / template_info.file_name, "w"
         ) as model_file:

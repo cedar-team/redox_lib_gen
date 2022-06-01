@@ -399,6 +399,7 @@ class TemplateInfo:
     relative_imports: ImportMapping = field(default_factory=ImportMapping)
     klass_definitions: List[KlassDefinition] = field(default_factory=list)
     use_simple_types: bool = False
+    jinja_template_file_name: str = "template-resource.jinja2"
 
     @property
     def forward_refs(self):
