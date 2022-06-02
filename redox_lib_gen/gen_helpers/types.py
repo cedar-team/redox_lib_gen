@@ -7,6 +7,7 @@ from itertools import chain
 from pathlib import Path
 from typing import DefaultDict, Generator, List, Optional, Union
 
+from .constants import GENERIC_DIR_NAME
 from .empty_klass import EMPTY_KLASS_DEF, EMPTY_KLASS_PROPERTY
 from .sub_types import DeconstructedType, KlassPropertyType
 
@@ -99,6 +100,11 @@ class PropertyTypeInfo:
     def type_class(self) -> KlassPropertyType:
         return self._raw_type.property_type
 
+    def prefix_schema_types(self, prefix: str):
+        self._raw_type.schema_prefix = prefix
+        if self._raw_type_simplified is not None:
+            self._raw_type_simplified.schema_prefix = prefix
+
     def __or__(self, other: "PropertyTypeInfo"):
         if None in (self._raw_type_simplified, other._raw_type_simplified):
             simplified = self._raw_type_simplified or other._raw_type_simplified
@@ -138,6 +144,9 @@ class KlassPropertySignatureInfo:
     @property
     def type_class(self):
         return self.type_info.type_class
+
+    def prefix_schema_types(self, prefix: str):
+        self.type_info.prefix_schema_types(prefix)
 
     def __copy__(self):
         """Create a duplicate of the current instance."""
@@ -233,7 +242,7 @@ class KlassPropertySignatureInfo:
 
         # Only case left is where the names are equal
         if (
-            self.type_class < other.type_class
+            self.type_class.value < other.type_class.value
             or self.type < other.type
             or self.type_simplified < other.type_simplified
             or int(self.required) < int(other.required)
@@ -278,6 +287,10 @@ class KlassDefinition:
                 EMPTY_KLASS_PROPERTY, {p.name: p for p in self.properties}
             )
         return self._prop_map
+
+    def prefix_schema_types(self, prefix: str):
+        for p in self.properties:
+            p.prefix_schema_types(prefix)
 
     def __copy__(self):
         """Create a duplicate of the current instance."""
@@ -386,8 +399,8 @@ class KlassDefinition:
 class TemplateInfo:
     """Stores all info needed for populating the Jinja2 template."""
 
-    dir_name: str
     file_name: str
+    dir_name: str
 
     # Keeping track of the imports needed for all the classes in a dict of sets allows
     # for super simple deduplication of entries, and using a defaultdict instead of a
@@ -424,6 +437,10 @@ class TemplateInfo:
         for k in self.klass_definitions:
             if k.is_event_type:
                 yield k
+
+    def prefix_schema_types(self, prefix: str):
+        for k in self.klass_definitions:
+            k.prefix_schema_types(prefix)
 
     def add_klass_def(self, klass_definition: KlassDefinition):
         if klass_definition.is_event_type:
@@ -533,3 +550,17 @@ class TemplateInfo:
         else:
             module = ".".join(import_names[:-1])
             self.relative_imports[module].add(import_names[-1])
+
+
+@dataclass
+class GenericsTemplateInfo(TemplateInfo):
+    dir_name: str = GENERIC_DIR_NAME
+    use_simple_types: bool = True
+    jinja_template_file_name: str = "generics.jinja2"
+    model_name: str = ""
+
+    def as_dict(self):
+        return {
+            **super().as_dict(),
+            "model_name": self.model_name,
+        }

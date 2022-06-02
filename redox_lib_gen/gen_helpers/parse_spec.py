@@ -6,7 +6,7 @@ from typing import Iterator, Union
 
 from inflection import singularize
 
-from .name_map import NAME_TRANSLATIONS
+from .constants import NAME_TRANSLATIONS
 from .types import (
     ImportMapping,
     KlassDefinition,

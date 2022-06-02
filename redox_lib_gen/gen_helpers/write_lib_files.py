@@ -26,6 +26,8 @@ def process_files(
 
     # Count the number of files we'll be processing so click can make a progressbar
     num_files = sum(len(list((extracted_folder / d).iterdir())) for d in directories)
+    # Add to the count: One generic file per directory + "common" types file
+    num_files += len(directories) + 1
 
     # Create the progressbar and an updater function
     with click.progressbar(
@@ -36,9 +38,6 @@ def process_files(
             bar.update(1, file_name)
 
         for directory in directories:
-            # Make sure the destination dir exists and contains an __init__.py
-            (dst / directory).mkdir()
-
             parsed_generator = parse_and_build_models(
                 spec_dir=extracted_folder / directory
             )
@@ -51,10 +50,13 @@ def process_files(
                 ),
             )
 
-    click.echo(f"Generating common types file in {commons.template_filename}")
-    write_py_files(
-        lib_dest_dir=dst, jinja_env=jinja_env, template_info_generator=commons.template
-    )
+        # Generics and commons
+        write_py_files(
+            lib_dest_dir=dst,
+            jinja_env=jinja_env,
+            progressbar_updater=update_bar,
+            template_info_generator=commons.templates,
+        )
 
     click.echo("Done")
     click.echo(f"pyredox files generated at {dst}")
@@ -78,6 +80,9 @@ def write_py_files(
     """
 
     for template_info in template_info_generator:
+        # Make sure the destination dir exists
+        (lib_dest_dir / template_info.dir_name).mkdir(exist_ok=True)
+
         template = jinja_env.get_template(template_info.jinja_template_file_name)
         with open(
             lib_dest_dir / template_info.dir_name / template_info.file_name, "w"
