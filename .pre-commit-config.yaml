@@ -14,11 +14,6 @@ repos:
   - id: isort
     name: Reorder Python imports
     additional_dependencies: ['toml']
-- repo: https://github.com/python-poetry/poetry
-  rev: 1.2.0b1
-  hooks:
-  - id: poetry-check
-  - id: poetry-lock
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.2.0
   hooks:
