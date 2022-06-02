@@ -3,16 +3,16 @@ from pathlib import Path
 from subprocess import CalledProcessError, run
 
 import pytest
-from snapshottest.file import FileSnapshot
 
 import redox_lib_gen
 from redox_lib_gen.utils import temp_chdir
+from snapshottest.file import FileSnapshot
 
 from .no_spaces import NoSpacesPyTestSnapshotTest
 
 
 def test_version():
-    assert redox_lib_gen.__version__ == "0.1.0a1"
+    assert redox_lib_gen.__version__ == "0.1.0-alpha.1"
 
 
 @pytest.fixture

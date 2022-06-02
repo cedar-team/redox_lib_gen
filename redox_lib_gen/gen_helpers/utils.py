@@ -152,5 +152,4 @@ def _get_array_prop_type(
 def format_python_files(target_dir: Path):
     """Run black and isort on the target directory."""
     target_dir = target_dir.resolve()
-    run(["black", target_dir], check=True)
-    run(["isort", target_dir], check=True)
+    run(["ufmt", "format", target_dir], check=True)
