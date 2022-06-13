@@ -413,6 +413,7 @@ class TemplateInfo:
     klass_definitions: List[KlassDefinition] = field(default_factory=list)
     use_simple_types: bool = False
     jinja_template_file_name: str = "template-resource.jinja2"
+    add_event_types_to_init: bool = True
 
     @property
     def forward_refs(self):
@@ -558,6 +559,7 @@ class GenericsTemplateInfo(TemplateInfo):
     use_simple_types: bool = True
     jinja_template_file_name: str = "generics.jinja2"
     model_name: str = ""
+    add_event_types_to_init: bool = False
 
     def as_dict(self):
         return {

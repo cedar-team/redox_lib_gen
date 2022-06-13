@@ -99,11 +99,12 @@ def write_py_files(
             with open(init_path, "w") as init_file:
                 init_file.write("# -*- coding: utf-8 -*-\n")
                 init_file.write("# flake8: noqa: F401\n")
-        with open(init_path, "a") as init_file:
-            for event_class in template_info.event_type_classes:
-                # Don't worry too much about the formatting here since isort will clean
-                # it up for us.
-                init_file.write(
-                    f"from .{template_info.file_name.rsplit('.', 1)[0]} "
-                    f"import {event_class.full_name}\n"
-                )
+        if template_info.add_event_types_to_init:
+            with open(init_path, "a") as init_file:
+                for event_class in template_info.event_type_classes:
+                    # Don't worry too much about the formatting here since usort will
+                    # clean it up for us.
+                    init_file.write(
+                        f"from .{template_info.file_name.rsplit('.', 1)[0]} "
+                        f"import {event_class.full_name}\n"
+                    )
