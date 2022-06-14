@@ -60,6 +60,18 @@ class DeconstructedType:
 
     property_type: KlassPropertyType
     types: Set[Union[str, "DeconstructedType"]] = field(default_factory=set)
+    _schema_types_prefix: str = ""
+
+    @property
+    def schema_prefix(self):
+        return self._schema_types_prefix
+
+    @schema_prefix.setter
+    def schema_prefix(self, val: str):
+        self._schema_types_prefix = val
+        for t in self.types:
+            if isinstance(t, DeconstructedType):
+                t.schema_prefix = val
 
     def _validate_length(self):
         """Verify that ``NATIVE`` and ``SCHEMA`` types only have one element."""
@@ -93,7 +105,12 @@ class DeconstructedType:
             return f"Union[{', '.join(_sort_type_names([str(t) for t in self.types]))}]"
 
         elif self.property_type is KlassPropertyType.SCHEMA:
-            return f'"{list(self.types)[0]}"'
+            schema_type = list(self.types)[0]
+            return (
+                f"{self.schema_prefix}{schema_type}"
+                if self.schema_prefix
+                else f'"{schema_type}"'
+            )
 
         raise ValueError(f"Unexpected property type: {self.property_type}")
 

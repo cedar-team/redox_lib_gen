@@ -4,7 +4,7 @@ exclude: >
   )$
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.2.0
+  rev: v4.3.0
   hooks:
   - id: check-merge-conflict
   - id: check-symlinks
@@ -33,14 +33,15 @@ repos:
     args: ["--ignore=E501,D104,D105,W503"]
     additional_dependencies: ['pep8-naming']
 - repo: https://github.com/omnilib/ufmt
-  rev: v1.3.2
+  rev: v2.0.0b1
   hooks:
-    - id: ufmt
+  - id: ufmt
+    exclude: "tests/snapshots/*"
 - repo: local
   hooks:
-  - id: pytest
-    name: pytest
-    entry: pytest
+  - id: tox
+    name: tox
+    entry: tox
     language: system
     files: 'tests/.*'
     pass_filenames: false
