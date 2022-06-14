@@ -35,12 +35,13 @@ repos:
 - repo: https://github.com/omnilib/ufmt
   rev: v2.0.0b1
   hooks:
-    - id: ufmt
+  - id: ufmt
+    exclude: "tests/snapshots/*"
 - repo: local
   hooks:
-  - id: pytest
-    name: pytest
-    entry: pytest
+  - id: tox
+    name: tox
+    entry: tox
     language: system
     files: 'tests/.*'
     pass_filenames: false
