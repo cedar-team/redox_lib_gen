@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
 from shutil import copy
-from typing import List
 
 import click
 from gen_helpers import download_and_extract, format_python_files, process_files, rmrf
@@ -11,9 +10,8 @@ from requests import HTTPError
 SPEC_URL = "https://developer.redoxengine.com/data-models/schemas.zip"
 PARENT_DIR = Path(__file__).parent.resolve()
 CACHE_DIR = PARENT_DIR / "cache"
-LIB_DEST_DIR = (PARENT_DIR / ".." / "pyredox").resolve()
+LIB_DEST_DIR = (PARENT_DIR / ".." / ".." / "pyredox" / "pyredox").resolve()
 TEMPLATE_DIR = PARENT_DIR / "templates"
-DEFAULT_DIRS_TO_GENERATE = ["patientadmin", "scheduling"]
 
 
 @click.command()
@@ -54,19 +52,8 @@ DEFAULT_DIRS_TO_GENERATE = ["patientadmin", "scheduling"]
         "instead of downloading a fresh version of the spec."
     ),
 )
-@click.argument("directories", nargs=-1)
-def main(
-    dst: Path,
-    cache_dir: Path,
-    spec_url: str,
-    force_download: bool,
-    directories: List[str],
-):
-    """Generate Pydantic models from the JSON specs in DIRECTORIES.
-
-    DIRECTORIES is a list of directories that exist in the extracted spec
-    archive that should be included in the generated output.
-    """
+def main(dst: Path, cache_dir: Path, spec_url: str, force_download: bool):
+    """Generate Pydantic models from the Redox JSON specs."""
 
     cache_dir.mkdir(exist_ok=True)
     try:
@@ -78,17 +65,6 @@ def main(
         )
         exit(2)
         return
-
-    # Check that the given directories are in the extracted spec folder
-    if not directories:
-        directories = DEFAULT_DIRS_TO_GENERATE
-    for d in directories:
-        dir_to_check = extracted_folder / d
-        if not (dir_to_check.exists() and dir_to_check.is_dir()):
-            raise NotADirectoryError(
-                f'Unable to find directory "{d}" in extracted spec files. Check the '
-                f"`directories` argument and try again."
-            )
 
     # Clear the destination dir (minus a few things)
     rmrf(
@@ -115,7 +91,12 @@ def main(
             dst_path.parent.mkdir()
             copy(f, dst_path)
 
-    process_files(extracted_folder, dst, directories, TEMPLATE_DIR)
+    process_files(
+        extracted_folder,
+        dst,
+        [d.name for d in extracted_folder.iterdir() if d.is_dir()],
+        TEMPLATE_DIR,
+    )
     format_python_files(dst)
 
 

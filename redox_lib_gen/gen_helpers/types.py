@@ -2,13 +2,13 @@
 from collections import defaultdict
 from copy import copy
 from dataclasses import dataclass, field
-from enum import Enum
 from functools import total_ordering
 from itertools import chain
 from pathlib import Path
 from typing import DefaultDict, Generator, List, Optional, Union
 
 from .empty_klass import EMPTY_KLASS_DEF, EMPTY_KLASS_PROPERTY
+from .sub_types import DeconstructedType, KlassPropertyType
 
 
 class DirOrFileMismatchError(Exception):
@@ -58,7 +58,7 @@ class ImportMapping(defaultdict):
         Does NOT modify the import sets given as parameters.
         """
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Cannot merge imports from type {type(other)}")
+            return NotImplemented
 
         merged = ImportMapping()
         for module, set_of_names_to_import in chain(
@@ -68,42 +68,53 @@ class ImportMapping(defaultdict):
 
         return merged
 
-
-class KlassPropertyType(Enum):
-    """Indication of how complex the property's type is.
-
-    NATIVE properties have types that are built-in to Python/JSON, like
-    str/string, bool/boolean, None/null, float/number.
-
-    COMBINED properties have types where one or more NATIVE types are valid,
-    like ``Union[str, None]`` or ``List[str]``.
-
-    SCHEMA properties have types that are references to object definitions
-    elsewhere in the JSON schema, such as ``Meta``.
-
-    This enum is ordered from simplest to most complex, which means if you want
-    to know if one value is more complex than another, you can do the
-    following:
-
-    >>> first = KlassPropertyType.COMBINED
-    >>> second = KlassPropertyType.SCHEMA
-    >>> first > second  # Is first more complex than second? Returns False
-    """
-
-    NATIVE = 1  # Native Python types (str, bool, etc)
-    COMBINED = 2  # Types with List or Union
-    SCHEMA = 3  # Types that refer to classes defined in the schema
+    def __repr__(self):
+        return (
+            "ImportMapping({"
+            f"{', '.join([f'{repr(k)}: {repr(v)}' for k, v in self.items()])}"
+            "})"
+        )
 
 
 @dataclass
 class PropertyTypeInfo:
     """The information about a property from the schema."""
 
-    type: str
-    type_class: KlassPropertyType
-    type_simplified: str
-    imports: ImportMapping
-    relative_imports: ImportMapping
+    _raw_type: DeconstructedType
+    _raw_type_simplified: Optional[DeconstructedType] = None
+    imports: ImportMapping = field(default_factory=ImportMapping)
+    relative_imports: ImportMapping = field(default_factory=ImportMapping)
+
+    @property
+    def type(self) -> str:
+        return str(self._raw_type)
+
+    @property
+    def type_simplified(self) -> str:
+        if self._raw_type_simplified is None:
+            return self.type
+        return str(self._raw_type_simplified)
+
+    @property
+    def type_class(self) -> KlassPropertyType:
+        return self._raw_type.property_type
+
+    def __or__(self, other: "PropertyTypeInfo"):
+        if None in (self._raw_type_simplified, other._raw_type_simplified):
+            simplified = self._raw_type_simplified or other._raw_type_simplified
+        else:
+            simplified = self._raw_type_simplified | other._raw_type_simplified
+
+        return (
+            PropertyTypeInfo(
+                _raw_type=self._raw_type | other._raw_type,
+                _raw_type_simplified=simplified,
+                imports=self.imports + other.imports,
+                relative_imports=self.relative_imports + other.imports,
+            )
+            if isinstance(other, self.__class__)
+            else NotImplemented
+        )
 
 
 @dataclass
@@ -111,22 +122,30 @@ class PropertyTypeInfo:
 class KlassPropertySignatureInfo:
     """The information about a property suitable for rendering the template."""
 
-    type: str
-    type_class: KlassPropertyType
-    type_simplified: str
+    type_info: PropertyTypeInfo
     required: bool
     name: str
+    appears_in: set  # This is largely for debugging purposes, but it is VERY useful
+
+    @property
+    def type(self):
+        return self.type_info.type
+
+    @property
+    def type_simplified(self):
+        return self.type_info.type_simplified
+
+    @property
+    def type_class(self):
+        return self.type_info.type_class
 
     def __copy__(self):
         """Create a duplicate of the current instance."""
         return KlassPropertySignatureInfo(
-            type=self.type
-            if self.type_class.value < KlassPropertyType.SCHEMA.value
-            else self.name,
-            type_class=self.type_class,
-            type_simplified=self.type_simplified,
+            type_info=copy(self.type_info),
             required=self.required,
             name=self.name,
+            appears_in=copy(self.appears_in),
         )
 
     def __or__(self, other: "KlassPropertySignatureInfo"):
@@ -150,9 +169,7 @@ class KlassPropertySignatureInfo:
             return new_prop
 
         elif not isinstance(other, self.__class__):
-            raise TypeError(
-                f"Cannot combine KlassPropertySignatureInfo with {type(other)} object"
-            )
+            return NotImplemented
 
         if self.name != other.name:
             raise ValueError(
@@ -160,37 +177,17 @@ class KlassPropertySignatureInfo:
                 f"{self.name} vs {other.name}"
             )
 
-        if self.type_class is not other.type_class and KlassPropertyType.SCHEMA in {
-            self.type_class,
-            other.type_class,
-        }:
-            raise ValueError(
-                "Cannot combine a SCHEMA type property with a non-SCHEMA type "
-                "property"
-            )
-
-        # If there's a difference in the type class value, upgrade to the more complex
-        if self.type_class.value >= other.type_class.value:
-            new_type = self.type
-            new_type_class = self.type_class
-            new_type_simplified = self.type_simplified
-        else:
-            new_type = other.type
-            new_type_class = other.type_class
-            new_type_simplified = other.type_simplified
-
         return KlassPropertySignatureInfo(
-            type=new_type,
-            type_class=new_type_class,
-            type_simplified=new_type_simplified,
+            type_info=self.type_info | other.type_info,
             name=self.name,
             required=self.required and other.required,
+            appears_in=self.appears_in.union(other.appears_in),
         )
 
     def __hash__(self):
         return hash(
             (
-                self.name.lower(),
+                self.name,
                 self.type,
                 self.type_class,
                 self.type_simplified,
@@ -208,10 +205,8 @@ class KlassPropertySignatureInfo:
         """
         return (
             (
-                self.name.lower() == other.name.lower()
-                and self.type == other.type
-                and self.type_class is other.type_class
-                and self.type_simplified == other.type_simplified
+                self.name == other.name
+                and self.type_info == other.type_info
                 and self.required == other.required
             )
             if isinstance(other, self.__class__)
@@ -231,9 +226,9 @@ class KlassPropertySignatureInfo:
         if not isinstance(other, self.__class__):
             return NotImplemented
 
-        if self.name.lower() < other.name.lower():
+        if self.name < other.name:
             return True
-        if self.name.lower() > other.name.lower():
+        if self.name > other.name:
             return False
 
         # Only case left is where the names are equal
@@ -253,6 +248,12 @@ class KlassDefinition:
     """The information about a class suitable for rendering the template."""
 
     klass_name: str
+
+    # dir_name is the string name of the directory where the JSON schema file is that
+    # defines this object. Will also be the directory where the generated Python file
+    # will go (assuming it's a valid dir name).
+    dir_name: str
+
     parent_klass_name: str = ""
     schema_def: Optional[dict] = None
     properties: List[KlassPropertySignatureInfo] = field(default_factory=list)
@@ -285,6 +286,7 @@ class KlassDefinition:
             properties=[copy(p) for p in self.properties],
             has_forward_refs=self.has_forward_refs,
             is_event_type=self.is_event_type,
+            dir_name=self.dir_name,
         )
 
     def __or__(self, other: "KlassDefinition"):
@@ -302,7 +304,7 @@ class KlassDefinition:
         if other is EMPTY_KLASS_DEF:
             return copy(self)
         elif not isinstance(other, self.__class__):
-            raise TypeError(f"Cannot combine KlassDefinition with {type(other)} object")
+            return NotImplemented
 
         if self.klass_name != other.klass_name:
             raise ValueError(
@@ -319,10 +321,11 @@ class KlassDefinition:
             properties=list(combined_properties.values()),
             has_forward_refs=self.has_forward_refs or other.has_forward_refs,
             is_event_type=self.is_event_type or other.is_event_type,
+            dir_name=self.dir_name,
         )
 
     def __hash__(self):
-        return hash((self.full_name.lower(), self.is_event_type, set(self.properties)))
+        return hash((self.full_name, self.is_event_type, set(self.properties)))
 
     def __eq__(self, other: "KlassDefinition"):
         """Compare the klass with another klass.
@@ -333,7 +336,7 @@ class KlassDefinition:
         """
         return (
             (
-                self.full_name.lower() == other.full_name.lower()
+                self.full_name == other.full_name
                 and self.is_event_type == self.is_event_type
                 and set(self.properties) == set(other.properties)
             )
@@ -359,9 +362,9 @@ class KlassDefinition:
         if not isinstance(other, self.__class__):
             return NotImplemented
 
-        if self.full_name.lower() < other.full_name.lower():
+        if self.full_name < other.full_name:
             return True
-        if self.full_name.lower() > other.full_name.lower():
+        if self.full_name > other.full_name:
             return False
 
         # Only case left is where the names are equal
@@ -390,7 +393,9 @@ class TemplateInfo:
     # for super simple deduplication of entries, and using a defaultdict instead of a
     # standard dict eliminates the need to check if we've already collected an import
     # from a particular module already.
-    imports: ImportMapping = field(default_factory=ImportMapping)
+    imports: ImportMapping = field(
+        default_factory=lambda: ImportMapping({"pydantic": {"Field"}})
+    )
     relative_imports: ImportMapping = field(default_factory=ImportMapping)
     klass_definitions: List[KlassDefinition] = field(default_factory=list)
     use_simple_types: bool = False

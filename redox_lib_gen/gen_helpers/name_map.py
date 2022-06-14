@@ -52,6 +52,7 @@ NAME_TRANSLATIONS = {
     "request": "Request",
     "reschedule": "Reschedule",
     "response": "Response",
+    "sign-on": "SignOn",
     "study": "Study",
     "subjectupdate": "SubjectUpdate",
     "submission": "Submission",

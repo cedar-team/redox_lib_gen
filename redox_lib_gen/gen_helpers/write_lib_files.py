@@ -91,7 +91,8 @@ def write_py_files(
         if not init_path.exists():
             # Start the file with a flake8 ignore command
             with open(init_path, "w") as init_file:
-                init_file.write("# flake8: noqa: F01\n")
+                init_file.write("# -*- coding: utf-8 -*-\n")
+                init_file.write("# flake8: noqa: F401\n")
         with open(init_path, "a") as init_file:
             for event_class in template_info.event_type_classes:
                 # Don't worry too much about the formatting here since isort will clean
