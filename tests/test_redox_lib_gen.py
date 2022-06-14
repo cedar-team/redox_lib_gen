@@ -43,7 +43,11 @@ def test_compare_generated_with_existing(snapshot, fresh_lib_generation: Path):
     snapshot.snapshot_dir = Path(__file__).parent.resolve() / "snapshots"
     tmp_dir = fresh_lib_generation
     for f in tmp_dir.glob("**/*.py"):
-        snapshot.assert_match(
-            value=f.read_text(),
-            snapshot_name=snapshot.snapshot_dir / f.relative_to(tmp_dir),
-        )
+        try:
+            snapshot.assert_match(
+                value=f.read_text(),
+                snapshot_name=snapshot.snapshot_dir / f.relative_to(tmp_dir),
+            )
+        except AssertionError:
+            print(f"FAILED: {f}")
+            raise

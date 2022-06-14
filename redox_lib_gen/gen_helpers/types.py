@@ -187,7 +187,7 @@ class KlassPropertySignatureInfo:
     def __hash__(self):
         return hash(
             (
-                self.name.lower(),
+                self.name,
                 self.type,
                 self.type_class,
                 self.type_simplified,
@@ -205,7 +205,7 @@ class KlassPropertySignatureInfo:
         """
         return (
             (
-                self.name.lower() == other.name.lower()
+                self.name == other.name
                 and self.type_info == other.type_info
                 and self.required == other.required
             )
@@ -226,9 +226,9 @@ class KlassPropertySignatureInfo:
         if not isinstance(other, self.__class__):
             return NotImplemented
 
-        if self.name.lower() < other.name.lower():
+        if self.name < other.name:
             return True
-        if self.name.lower() > other.name.lower():
+        if self.name > other.name:
             return False
 
         # Only case left is where the names are equal
@@ -325,7 +325,7 @@ class KlassDefinition:
         )
 
     def __hash__(self):
-        return hash((self.full_name.lower(), self.is_event_type, set(self.properties)))
+        return hash((self.full_name, self.is_event_type, set(self.properties)))
 
     def __eq__(self, other: "KlassDefinition"):
         """Compare the klass with another klass.
@@ -336,7 +336,7 @@ class KlassDefinition:
         """
         return (
             (
-                self.full_name.lower() == other.full_name.lower()
+                self.full_name == other.full_name
                 and self.is_event_type == self.is_event_type
                 and set(self.properties) == set(other.properties)
             )
@@ -362,9 +362,9 @@ class KlassDefinition:
         if not isinstance(other, self.__class__):
             return NotImplemented
 
-        if self.full_name.lower() < other.full_name.lower():
+        if self.full_name < other.full_name:
             return True
-        if self.full_name.lower() > other.full_name.lower():
+        if self.full_name > other.full_name:
             return False
 
         # Only case left is where the names are equal
