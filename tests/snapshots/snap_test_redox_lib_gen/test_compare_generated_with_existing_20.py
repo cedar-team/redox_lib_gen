@@ -80,6 +80,7 @@ class VisitQueryResponseAdmissionDiagnosis(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseAdmissionDiagnosisComment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     IsNegativeIndicator: Union[bool, None] = Field(None)
     Name: Union[str, None] = Field(None)
@@ -92,6 +93,11 @@ class VisitQueryResponseAdmissionDiagnosisAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseAdmissionDiagnosisComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseAdvanceDirective(RedoxAbstractModel):
@@ -162,6 +168,7 @@ class VisitQueryResponseAdvanceDirectiveVerifiedBy(RedoxAbstractModel):
 class VisitQueryResponseAllergy(RedoxAbstractModel):
 
     Comment: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseAllergyComment"] = Field(None)
     Criticality: "VisitQueryResponseAllergyCriticality" = Field(None)
     EndDate: Union[str, None] = Field(None)
     Reaction: List["VisitQueryResponseAllergyReaction"] = Field(None)
@@ -170,6 +177,11 @@ class VisitQueryResponseAllergy(RedoxAbstractModel):
     Status: "VisitQueryResponseAllergyStatus" = Field(None)
     Substance: "VisitQueryResponseAllergySubstance" = Field(None)
     Type: "VisitQueryResponseAllergyType" = Field(None)
+
+
+class VisitQueryResponseAllergyComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseAllergyCriticality(RedoxAbstractModel):
@@ -265,6 +277,7 @@ class VisitQueryResponseAssessment(RedoxAbstractModel):
 class VisitQueryResponseAssessmentDiagnosis(RedoxAbstractModel):
 
     Codes: List["VisitQueryResponseAssessmentDiagnosisCode"] = Field(None)
+    Comments: List["VisitQueryResponseAssessmentDiagnosisComment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     IsNegativeIndicator: Union[bool, None] = Field(None)
     Value: Union[str, None] = Field(None)
@@ -278,12 +291,18 @@ class VisitQueryResponseAssessmentDiagnosisCode(RedoxAbstractModel):
     Name: Union[str, None] = Field(None)
 
 
+class VisitQueryResponseAssessmentDiagnosisComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
+
+
 class VisitQueryResponseDischargeDiagnosis(RedoxAbstractModel):
 
     AltCodes: List["VisitQueryResponseDischargeDiagnosisAltCode"] = Field(None)
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseDischargeDiagnosisComment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     IsNegativeIndicator: Union[bool, None] = Field(None)
     Name: Union[str, None] = Field(None)
@@ -296,6 +315,11 @@ class VisitQueryResponseDischargeDiagnosisAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseDischargeDiagnosisComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseDischargeMedication(RedoxAbstractModel):
@@ -620,6 +644,7 @@ class VisitQueryResponseFunctionalStatusObservation(RedoxAbstractModel):
     CodedValue: "VisitQueryResponseFunctionalStatusObservationCodedValue" = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseFunctionalStatusObservationComment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     ReferenceRange: "VisitQueryResponseFunctionalStatusObservationReferenceRange" = (
@@ -658,6 +683,11 @@ class VisitQueryResponseFunctionalStatusObservationCodedValueAltCode(
     Name: Union[str, None] = Field(None)
 
 
+class VisitQueryResponseFunctionalStatusObservationComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
+
+
 class VisitQueryResponseFunctionalStatusObservationReferenceRange(RedoxAbstractModel):
 
     High: Union[Number, None] = Field(None)
@@ -692,6 +722,7 @@ class VisitQueryResponseGoal(RedoxAbstractModel):
     CodedValue: "VisitQueryResponseGoalCodedValue" = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseGoalComment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     EndDate: Union[str, None] = Field(None)
     Milestones: List["VisitQueryResponseGoalMilestone"] = Field(None)
@@ -733,6 +764,11 @@ class VisitQueryResponseGoalCodedValueAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseGoalComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseGoalMilestone(RedoxAbstractModel):
@@ -1125,6 +1161,7 @@ class VisitQueryResponseHealthConcern(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseHealthConcernComment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     StartDate: Union[str, None] = Field(None)
@@ -1137,6 +1174,11 @@ class VisitQueryResponseHealthConcernAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseHealthConcernComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseImmunization(RedoxAbstractModel):
@@ -1691,6 +1733,7 @@ class VisitQueryResponseProblem(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Comment: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseProblemComment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     HealthStatus: "VisitQueryResponseProblemHealthStatus" = Field(None)
     Name: Union[str, None] = Field(None)
@@ -1721,6 +1764,11 @@ class VisitQueryResponseProblemCategoryAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseProblemComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseProblemHealthStatus(RedoxAbstractModel):
@@ -1761,6 +1809,7 @@ class VisitQueryResponseProceduresObservation(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseProceduresObservationComment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     Status: Union[str, None] = Field(None)
@@ -1773,6 +1822,11 @@ class VisitQueryResponseProceduresObservationAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseProceduresObservationComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseProceduresObservationTargetSite(RedoxAbstractModel):
@@ -1800,6 +1854,7 @@ class VisitQueryResponseProceduresProcedure(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseProceduresProcedureComment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     Status: Union[str, None] = Field(None)
@@ -1812,6 +1867,11 @@ class VisitQueryResponseProceduresProcedureAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseProceduresProcedureComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseProceduresProcedureTargetSite(RedoxAbstractModel):
@@ -1839,6 +1899,7 @@ class VisitQueryResponseProceduresService(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseProceduresServiceComment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     Status: Union[str, None] = Field(None)
@@ -1850,6 +1911,11 @@ class VisitQueryResponseProceduresServiceAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseProceduresServiceComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseReasonForVisit(RedoxAbstractModel):
@@ -1895,6 +1961,7 @@ class VisitQueryResponseResolvedProblem(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Comment: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseResolvedProblemComment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     StartDate: Union[str, None] = Field(None)
@@ -1926,6 +1993,11 @@ class VisitQueryResponseResolvedProblemCategoryAltCode(RedoxAbstractModel):
     Name: Union[str, None] = Field(None)
 
 
+class VisitQueryResponseResolvedProblemComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
+
+
 class VisitQueryResponseResolvedProblemStatus(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
@@ -1940,13 +2012,46 @@ class VisitQueryResponseResult(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Encounter: "VisitQueryResponseResultEncounter" = Field(None)
     Name: Union[str, None] = Field(None)
     Observations: List["VisitQueryResponseResultObservation"] = Field(None)
     Producer: "VisitQueryResponseResultProducer" = Field(None)
+    Specimen: "VisitQueryResponseResultSpecimen" = Field(None)
     Status: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseResultAltCode(RedoxAbstractModel):
+
+    Code: Union[str, None] = Field(None)
+    CodeSystem: Union[str, None] = Field(None)
+    CodeSystemName: Union[str, None] = Field(None)
+    Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseResultEncounter(RedoxAbstractModel):
+
+    DateTime: Union[str, None] = Field(None)
+    EndDateTime: Union[str, None] = Field(None)
+    Identifiers: List["VisitQueryResponseResultEncounterIdentifier"] = Field(None)
+    Type: "VisitQueryResponseResultEncounterType" = Field(None)
+
+
+class VisitQueryResponseResultEncounterIdentifier(RedoxAbstractModel):
+
+    ID: Union[str, None] = Field(None)
+    IDType: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseResultEncounterType(RedoxAbstractModel):
+
+    AltCodes: List["VisitQueryResponseResultEncounterTypeAltCode"] = Field(None)
+    Code: Union[str, None] = Field(None)
+    CodeSystem: Union[str, None] = Field(None)
+    CodeSystemName: Union[str, None] = Field(None)
+    Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseResultEncounterTypeAltCode(RedoxAbstractModel):
 
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
@@ -1961,6 +2066,7 @@ class VisitQueryResponseResultObservation(RedoxAbstractModel):
     CodedValue: "VisitQueryResponseResultObservationCodedValue" = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseResultObservationComment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Interpretation: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
@@ -1996,6 +2102,11 @@ class VisitQueryResponseResultObservationCodedValueAltCode(RedoxAbstractModel):
     Name: Union[str, None] = Field(None)
 
 
+class VisitQueryResponseResultObservationComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
+
+
 class VisitQueryResponseResultObservationReferenceRange(RedoxAbstractModel):
 
     High: Union[str, None] = Field(None)
@@ -2021,6 +2132,30 @@ class VisitQueryResponseResultProducerAddress(RedoxAbstractModel):
     ZIP: Union[str, None] = Field(None)
 
 
+class VisitQueryResponseResultSpecimen(RedoxAbstractModel):
+
+    CollectionDateTime: Union[None] = Field(None)
+    Identifiers: List[str] = Field(None)
+    Source: "VisitQueryResponseResultSpecimenSource" = Field(None)
+    TargetSite: "VisitQueryResponseResultSpecimenTargetSite" = Field(None)
+
+
+class VisitQueryResponseResultSpecimenSource(RedoxAbstractModel):
+
+    Code: Union[str, None] = Field(None)
+    CodeSystem: Union[str, None] = Field(None)
+    CodeSystemName: Union[str, None] = Field(None)
+    Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseResultSpecimenTargetSite(RedoxAbstractModel):
+
+    Code: Union[str, None] = Field(None)
+    CodeSystem: Union[str, None] = Field(None)
+    CodeSystemName: Union[str, None] = Field(None)
+    Name: Union[str, None] = Field(None)
+
+
 class VisitQueryResponseSocialHistory(RedoxAbstractModel):
 
     Observations: List["VisitQueryResponseSocialHistoryObservation"] = Field(None)
@@ -2034,6 +2169,7 @@ class VisitQueryResponseSocialHistoryObservation(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseSocialHistoryObservationComment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     StartDate: Union[str, None] = Field(None)
@@ -2047,6 +2183,11 @@ class VisitQueryResponseSocialHistoryObservationAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseSocialHistoryObservationComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseSocialHistoryObservationValue(RedoxAbstractModel):
@@ -2070,9 +2211,15 @@ class VisitQueryResponseSocialHistoryObservationValueAltCode(RedoxAbstractModel)
 
 class VisitQueryResponseSocialHistoryPregnancy(RedoxAbstractModel):
 
+    Comments: List["VisitQueryResponseSocialHistoryPregnancyComment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     EstimatedDelivery: Union[str, None] = Field(None)
     StartDate: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseSocialHistoryPregnancyComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 class VisitQueryResponseSocialHistoryTobaccoUse(RedoxAbstractModel):
@@ -2081,6 +2228,7 @@ class VisitQueryResponseSocialHistoryTobaccoUse(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseSocialHistoryTobaccoUseComment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     IsSmokingStatus: Union[bool, None] = Field(None)
     Name: Union[str, None] = Field(None)
@@ -2095,6 +2243,11 @@ class VisitQueryResponseSocialHistoryTobaccoUseAltCode(RedoxAbstractModel):
     Name: Union[str, None] = Field(None)
 
 
+class VisitQueryResponseSocialHistoryTobaccoUseComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
+
+
 class VisitQueryResponseVitalSign(RedoxAbstractModel):
 
     DateTime: Union[str, None] = Field(None)
@@ -2107,6 +2260,7 @@ class VisitQueryResponseVitalSignObservation(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["VisitQueryResponseVitalSignObservationComment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Interpretation: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
@@ -2121,6 +2275,11 @@ class VisitQueryResponseVitalSignObservationAltCode(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
+
+
+class VisitQueryResponseVitalSignObservationComment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
 
 
 VisitQueryResponse.update_forward_refs()
@@ -2210,12 +2369,16 @@ VisitQueryResponseReasonForVisitCategory.update_forward_refs()
 VisitQueryResponseResolvedProblem.update_forward_refs()
 VisitQueryResponseResolvedProblemCategory.update_forward_refs()
 VisitQueryResponseResult.update_forward_refs()
+VisitQueryResponseResultEncounter.update_forward_refs()
+VisitQueryResponseResultEncounterType.update_forward_refs()
 VisitQueryResponseResultObservation.update_forward_refs()
 VisitQueryResponseResultObservationCodedValue.update_forward_refs()
 VisitQueryResponseResultProducer.update_forward_refs()
+VisitQueryResponseResultSpecimen.update_forward_refs()
 VisitQueryResponseSocialHistory.update_forward_refs()
 VisitQueryResponseSocialHistoryObservation.update_forward_refs()
 VisitQueryResponseSocialHistoryObservationValue.update_forward_refs()
+VisitQueryResponseSocialHistoryPregnancy.update_forward_refs()
 VisitQueryResponseSocialHistoryTobaccoUse.update_forward_refs()
 VisitQueryResponseVitalSign.update_forward_refs()
 VisitQueryResponseVitalSignObservation.update_forward_refs()

@@ -126,6 +126,7 @@ class AdmissionDiagnosis(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     IsNegativeIndicator: Union[bool, None] = Field(None)
     Name: Union[str, None] = Field(None)
@@ -180,6 +181,7 @@ class Allergy(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Comment: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     Criticality: "Criticality" = Field(None)
     EndDate: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
@@ -469,6 +471,11 @@ class CodedValue(RedoxAbstractModel):
     Name: Union[str, None] = Field(None)
 
 
+class Comment(RedoxAbstractModel):
+
+    Text: Union[str, None] = Field(None)
+
+
 class Company(RedoxAbstractModel):
 
     Address: "Address" = Field(None)
@@ -667,6 +674,7 @@ class Diagnosis(RedoxAbstractModel):
     Codeset: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Description: Union[str, None] = Field(None)
     DocumentedDateTime: Union[str, None] = Field(None)
@@ -683,6 +691,7 @@ class DischargeDiagnosis(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     IsNegativeIndicator: Union[bool, None] = Field(None)
     Name: Union[str, None] = Field(None)
@@ -890,6 +899,7 @@ class Goal(RedoxAbstractModel):
     CodedValue: "CodedValue" = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     EndDate: Union[str, None] = Field(None)
     Milestones: List["Milestone"] = Field(None)
@@ -933,6 +943,7 @@ class HealthConcern(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     StartDate: Union[str, None] = Field(None)
@@ -1294,6 +1305,7 @@ class Observation(RedoxAbstractModel):
     Codeset: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Description: Union[str, None] = Field(None)
     EndDate: Union[str, None] = Field(None)
@@ -1554,6 +1566,7 @@ class PotentialMatch(RedoxAbstractModel):
 
 class Pregnancy(RedoxAbstractModel):
 
+    Comments: List["Comment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     EstimatedDelivery: Union[str, None] = Field(None)
     StartDate: Union[str, None] = Field(None)
@@ -1619,6 +1632,7 @@ class Problem(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Comment: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     EndDate: Union[str, None] = Field(None)
     HealthStatus: "HealthStatus" = Field(None)
@@ -1638,6 +1652,7 @@ class Procedure(RedoxAbstractModel):
     Codeset: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Description: Union[str, None] = Field(None)
     Duration: Number = Field(None)
@@ -1893,6 +1908,7 @@ class ResolvedProblem(RedoxAbstractModel):
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
     Comment: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     StartDate: Union[str, None] = Field(None)
@@ -1909,6 +1925,7 @@ class Result(RedoxAbstractModel):
     CodeSystemName: Union[str, None] = Field(None)
     CompletionDateTime: Union[str, None] = Field(None)
     Description: Union[str, None] = Field(None)
+    Encounter: "Encounter" = Field(None)
     FileType: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
     Notes: List[str] = Field(None)
@@ -1984,6 +2001,7 @@ class Service(RedoxAbstractModel):
     Codeset: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     DateTime: Union[str, None] = Field(None)
     Decision: Union[str, None] = Field(None)
     DecisionReason: Union[str, None] = Field(None)
@@ -2056,6 +2074,9 @@ class SocialHistory(RedoxAbstractModel):
 
 class Source(RedoxAbstractModel):
 
+    Code: Union[str, None] = Field(None)
+    CodeSystem: Union[str, None] = Field(None)
+    CodeSystemName: Union[str, None] = Field(None)
     ID: Union[str, None] = Field(None)
     Name: Union[str, None] = Field(None)
 
@@ -2071,8 +2092,11 @@ class Specialty(RedoxAbstractModel):
 class Specimen(RedoxAbstractModel):
 
     BodySite: Union[str, None] = Field(None)
+    CollectionDateTime: Union[None] = Field(None)
     ID: Union[str, None] = Field(None)
-    Source: Union[str, None] = Field(None)
+    Identifiers: List[str] = Field(None)
+    Source: Union["Source", str, None] = Field(None)
+    TargetSite: "TargetSite" = Field(None)
 
 
 class Sponsor(RedoxAbstractModel):
@@ -2252,6 +2276,7 @@ class TobaccoUse(RedoxAbstractModel):
     Code: Union[str, None] = Field(None)
     CodeSystem: Union[str, None] = Field(None)
     CodeSystemName: Union[str, None] = Field(None)
+    Comments: List["Comment"] = Field(None)
     EndDate: Union[str, None] = Field(None)
     IsSmokingStatus: Union[bool, None] = Field(None)
     Name: Union[str, None] = Field(None)
@@ -2561,6 +2586,7 @@ Performer.update_forward_refs()
 Pharmacy.update_forward_refs()
 PlanOfCare.update_forward_refs()
 PotentialMatch.update_forward_refs()
+Pregnancy.update_forward_refs()
 PreviousLocation.update_forward_refs()
 PrimaryResultsInterpreter.update_forward_refs()
 PrincipalInvestigator.update_forward_refs()
@@ -2588,6 +2614,7 @@ Service.update_forward_refs()
 Session.update_forward_refs()
 Slot.update_forward_refs()
 SocialHistory.update_forward_refs()
+Specimen.update_forward_refs()
 Study.update_forward_refs()
 Submission.update_forward_refs()
 Submitter.update_forward_refs()
