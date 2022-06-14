@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import locale
 from pathlib import Path
 from subprocess import CalledProcessError, run
 
@@ -51,6 +50,9 @@ def fresh_lib_generation(tmp_path) -> Path:
 
 def test_compare_generated_with_existing(my_snapshot, fresh_lib_generation: Path):
     tmp_dir = fresh_lib_generation
-    print(f"{locale.getlocale()=}  {locale.getlocale(locale.LC_COLLATE)=}")
     for f in sorted(tmp_dir.glob("**/*.py")):
-        my_snapshot.assert_match(FileSnapshot(str(f)))
+        try:
+            my_snapshot.assert_match(FileSnapshot(str(f)))
+        except AssertionError:
+            print(f"File failed: {f}")
+            raise
