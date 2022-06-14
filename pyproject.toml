@@ -47,5 +47,5 @@ deps =
     snapshottest
     ufmt
 commands =
-    coverage run --source redox_lib_gen -m pytest
+    coverage run --source redox_lib_gen -m pytest -vvv
 """
