@@ -6,19 +6,10 @@ import pytest
 
 import redox_lib_gen
 from redox_lib_gen.utils import temp_chdir
-from snapshottest.file import FileSnapshot
-
-from .no_spaces import NoSpacesPyTestSnapshotTest
 
 
 def test_version():
     assert redox_lib_gen.__version__ == "0.1.0-alpha.1"
-
-
-@pytest.fixture
-def my_snapshot(request):
-    with NoSpacesPyTestSnapshotTest(request) as snapshot_test:
-        yield snapshot_test
 
 
 @pytest.fixture
@@ -48,11 +39,11 @@ def fresh_lib_generation(tmp_path) -> Path:
     return tmp_dir
 
 
-def test_compare_generated_with_existing(my_snapshot, fresh_lib_generation: Path):
+def test_compare_generated_with_existing(snapshot, fresh_lib_generation: Path):
+    snapshot.snapshot_dir = Path(__file__).parent.resolve() / "snapshots"
     tmp_dir = fresh_lib_generation
-    for f in sorted(tmp_dir.glob("**/*.py")):
-        try:
-            my_snapshot.assert_match(FileSnapshot(str(f)))
-        except AssertionError:
-            print(f"File failed: {f}")
-            raise
+    for f in tmp_dir.glob("**/*.py"):
+        snapshot.assert_match(
+            value=f.read_text(),
+            snapshot_name=snapshot.snapshot_dir / f.relative_to(tmp_dir),
+        )
