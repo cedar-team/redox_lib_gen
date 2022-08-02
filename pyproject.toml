@@ -44,10 +44,8 @@ basepython = python3
 passenv = GITHUB_*
 deps =
     pytest
-    coveralls
     pytest-snapshot
     ufmt
 commands =
     coverage run --source redox_lib_gen -m pytest -vv
-    coveralls
 """
