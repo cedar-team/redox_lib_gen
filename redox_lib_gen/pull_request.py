@@ -27,15 +27,36 @@ def get_num_differences() -> int:
 
 def update_version():
     with temp_chdir(LIB_DEST_DIR):
-        run(["poetry", "version", "patch"], check=True)  # Increment patch version
+        # Increment patch version
+        run(["poetry", "version", "patch"], check=True)
+
+        # Set the version number in pyredox.__version__
         run(
             "echo "
-            '"# -*- coding: utf-8 -*-\n'
-            '__version__ = \\"`poetry version --short`\\""'
+            '"'
+            "# -*- coding: utf-8 -*-\n"
+            '__version__ = \\"`poetry version --short`\\"'
+            '"'
             f" > {LIB_DEST_DIR / '__init__.py'}",
             shell=True,
             check=True,
-        )  # Set the version number in pyredox.__version__
+        )
+
+        # Set version number in test_pyredox_version.py
+        run(
+            "echo "
+            '"'
+            "# -*- coding: utf-8 -*-\n"
+            "from pyredox import __version__\n"
+            "\n"
+            "\n"
+            "def test_version():\n"
+            '    assert __version__ == \\"`poetry version --short`\\"'
+            '"'
+            f" > {LIB_DEST_DIR / '..' / 'tests' / 'test_pyredox_version.py'}",
+            shell=True,
+            check=True,
+        )
 
 
 def add_commit_push(num_differences: int) -> str:
