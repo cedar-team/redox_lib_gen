@@ -94,7 +94,7 @@ def get_property_type(
 
 
 def _get_sub_object_prop_type(type_infos: List[PropertyTypeInfo]) -> PropertyTypeInfo:
-    """Get property type infor for each subtype, returned combined."""
+    """Get property type info for each subtype, returned combined."""
     if SCHEMA in (t.type_class for t in type_infos):
         raise ValueError("Unsure how to deal with combining schema types here")
 
@@ -145,6 +145,9 @@ def _get_array_prop_type(
 
     return PropertyTypeInfo(
         _raw_type=DeconstructedType(LIST, {DeconstructedType(NATIVE, {"str"})}),
+        _raw_type_simplified=DeconstructedType(
+            LIST, {DeconstructedType(NATIVE, {"str"})}
+        ),
         imports=ImportMapping({"typing": {"List"}}),
     )
 
