@@ -31,7 +31,9 @@ def process_files(
 
     # Create the progressbar and an updater function
     with click.progressbar(
-        length=num_files, label="Generating Python files", item_show_func=lambda f: f
+        length=num_files,
+        label=f"Generating {num_files} Python files",
+        item_show_func=lambda f: f,
     ) as bar:
 
         def update_bar(file_name: str):

@@ -284,7 +284,8 @@ class KlassDefinition:
         """Map of property names to property objects."""
         if self._prop_map is None:
             self._prop_map = defaultdict(
-                EMPTY_KLASS_PROPERTY, {p.name: p for p in self.properties}
+                EMPTY_KLASS_PROPERTY,
+                {p.name: p for p in self.properties if p is not EMPTY_KLASS_PROPERTY},
             )
         return self._prop_map
 

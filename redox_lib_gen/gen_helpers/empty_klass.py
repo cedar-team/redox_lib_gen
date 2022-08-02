@@ -13,7 +13,9 @@ class EmptyKlassProperty:
         return self
 
     def __or__(self, other):
-        return other | self
+        # Try to take an or from the other direction, but only if other isn't also an
+        # EmptyKlassProperty, in which case just return self.
+        return self if isinstance(other, self.__class__) else other | self
 
 
 EMPTY_KLASS_PROPERTY = EmptyKlassProperty()

@@ -145,6 +145,9 @@ def _get_array_prop_type(
 
     return PropertyTypeInfo(
         _raw_type=DeconstructedType(LIST, {DeconstructedType(NATIVE, {"str"})}),
+        _raw_type_simplified=DeconstructedType(
+            LIST, {DeconstructedType(NATIVE, {"str"})}
+        ),
         imports=ImportMapping({"typing": {"List"}}),
     )
 
