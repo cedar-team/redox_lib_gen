@@ -71,10 +71,3 @@ Options:
                              the spec.
   --help                     Show this message and exit.
 ```
-
-
-## Limitations
-
-The generated `pyredox` library does not support the following:
-
-- [SSO](https://developer.redoxengine.com/data-models/SSO.html)
