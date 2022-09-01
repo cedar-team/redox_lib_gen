@@ -94,7 +94,7 @@ def get_property_type(
 
 
 def _get_sub_object_prop_type(type_infos: List[PropertyTypeInfo]) -> PropertyTypeInfo:
-    """Get property type infor for each subtype, returned combined."""
+    """Get property type info for each subtype, returned combined."""
     if SCHEMA in (t.type_class for t in type_infos):
         raise ValueError("Unsure how to deal with combining schema types here")
 
@@ -103,6 +103,10 @@ def _get_sub_object_prop_type(type_infos: List[PropertyTypeInfo]) -> PropertyTyp
         add, (t.imports for t in type_infos), ImportMapping({"typing": {"Union"}})
     )
     relative_imports = reduce(add, (t.relative_imports for t in type_infos))
+
+    # Make sure the list isn't just a set of None values
+    if {t.type for t in type_infos} == {"None"}:
+        type_infos.append(PropertyTypeInfo(DeconstructedType(NATIVE, {"str"})))
 
     # Create the union of the subtypes
     prop_type = DeconstructedType(UNION, {t.type for t in type_infos})
@@ -145,6 +149,9 @@ def _get_array_prop_type(
 
     return PropertyTypeInfo(
         _raw_type=DeconstructedType(LIST, {DeconstructedType(NATIVE, {"str"})}),
+        _raw_type_simplified=DeconstructedType(
+            LIST, {DeconstructedType(NATIVE, {"str"})}
+        ),
         imports=ImportMapping({"typing": {"List"}}),
     )
 
