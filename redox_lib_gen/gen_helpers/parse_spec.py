@@ -6,7 +6,7 @@ from typing import Iterator, Union
 
 from inflection import singularize
 
-from .constants import NAME_TRANSLATIONS
+from .constants import get_name_trans
 from .types import (
     ImportMapping,
     KlassDefinition,
@@ -37,13 +37,7 @@ def parse_and_build_models(spec_dir: Path) -> Iterator[TemplateInfo]:
 
         dir_stem = spec_dir.stem  # Remove any parent dirs from the Path obj
         file_stem = spec_file_path.stem  # Remove parents & extension
-
-        try:
-            klass_name = NAME_TRANSLATIONS[file_stem]
-        except KeyError as err:
-            raise ValueError(
-                f"Missing class name translation for found spec file: {file_stem}"
-            ) from err
+        klass_name = get_name_trans(file_stem, dir_stem)
 
         yield create_template_info(
             KlassDefinition(

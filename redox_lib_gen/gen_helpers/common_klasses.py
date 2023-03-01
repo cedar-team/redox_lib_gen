@@ -3,7 +3,7 @@ from collections import defaultdict
 from copy import copy
 from typing import DefaultDict, Dict, Iterator, List
 
-from .constants import GENERIC_DIR_NAME, NAME_TRANSLATIONS
+from .constants import GENERIC_DIR_NAME, get_name_trans
 from .empty_klass import EMPTY_KLASS_DEF
 from .types import GenericsTemplateInfo, ImportMapping, KlassDefinition, TemplateInfo
 
@@ -82,7 +82,7 @@ class _Generics:
         yield from self._templates.keys()
 
     def store(self, t_info: TemplateInfo):
-        model_name = NAME_TRANSLATIONS[t_info.dir_name]
+        model_name = get_name_trans(t_info.dir_name)
         if model_name not in self._templates:
             self._templates[model_name] = GenericsTemplateInfo(
                 file_name=f"{model_name}.py",

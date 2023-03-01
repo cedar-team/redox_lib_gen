@@ -43,7 +43,7 @@ poetry shell
 Then run the `generate.py` script:
 
 ```shell
-python3 generate.py
+cd redox_lib_gen && python3 generate.py
 ```
 
 ### Run Options
