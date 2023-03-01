@@ -10,12 +10,11 @@ from ..abstract_base import GenericRedoxAbstractModel
 from . import types as generic
 
 
-class _Device(GenericRedoxAbstractModel):
+class _Device(GenericEventTypeAbstractModel):
     _redox_module = device
 
 
 class New(_Device):
-
     Device: generic.Device = Field(...)
     Meta: generic.Meta = Field(...)
     Observations: List[generic.Observation] = Field(...)

@@ -10,19 +10,17 @@ from ..abstract_base import GenericRedoxAbstractModel
 from . import types as generic
 
 
-class _Research(GenericRedoxAbstractModel):
+class _Research(GenericEventTypeAbstractModel):
     _redox_module = research
 
 
 class Study(_Research):
-
     Meta: generic.Meta = Field(...)
     Protocols: List[generic.Protocol] = Field(None)
     Study: generic.Study = Field(None)
 
 
 class SubjectUpdate(_Research):
-
     Enrollment: generic.Enrollment = Field(None)
     Meta: generic.Meta = Field(...)
     Patient: generic.Patient = Field(None)

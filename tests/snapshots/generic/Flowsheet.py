@@ -10,12 +10,11 @@ from ..abstract_base import GenericRedoxAbstractModel
 from . import types as generic
 
 
-class _Flowsheet(GenericRedoxAbstractModel):
+class _Flowsheet(GenericEventTypeAbstractModel):
     _redox_module = flowsheet
 
 
 class New(_Flowsheet):
-
     Meta: generic.Meta = Field(...)
     Observations: List[generic.Observation] = Field(...)
     Patient: generic.Patient = Field(...)

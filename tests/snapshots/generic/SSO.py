@@ -10,12 +10,11 @@ from ..abstract_base import GenericRedoxAbstractModel
 from . import types as generic
 
 
-class _SSO(GenericRedoxAbstractModel):
+class _SSO(GenericEventTypeAbstractModel):
     _redox_module = sso
 
 
 class SignOn(_SSO):
-
     EmailAddress: Union[str, None] = Field(None)
     Expiration: str = Field(...)
     FirstName: Union[str, None] = Field(None)

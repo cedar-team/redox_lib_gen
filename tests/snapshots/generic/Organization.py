@@ -10,19 +10,18 @@ from ..abstract_base import GenericRedoxAbstractModel
 from . import types as generic
 
 
-class _Organization(GenericRedoxAbstractModel):
+class _Organization(GenericEventTypeAbstractModel):
     _redox_module = organization
 
 
 class New(_Organization):
-
     Directory: str = Field(...)
     Meta: generic.Meta = Field(...)
     Organizations: List[generic.Organization] = Field(...)
 
 
 class Query(_Organization):
-
+    Active: Union[bool, None] = Field(None)
     Directory: str = Field(...)
     Identifier: generic.Identifier = Field(None)
     Index: Union[str, None] = Field(None)
@@ -35,7 +34,6 @@ class Query(_Organization):
 
 
 class QueryResponse(_Organization):
-
     Directory: str = Field(...)
     Meta: generic.Meta = Field(...)
     Organizations: List[generic.Organization] = Field(...)
@@ -43,7 +41,6 @@ class QueryResponse(_Organization):
 
 
 class Update(_Organization):
-
     Action: str = Field(...)
     Directory: str = Field(...)
     Meta: generic.Meta = Field(...)
