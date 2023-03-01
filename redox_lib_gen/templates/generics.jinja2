@@ -15,7 +15,7 @@ from .{{ '.' * dir_dist_from_abstract }}{{ lib }} import {{ packages|sort|join('
 {% endfor %}
 
 
-class _{{ model_name }}(GenericRedoxAbstractModel):
+class _{{ model_name }}(GenericEventTypeAbstractModel):
     _redox_module = {{ model_name|lower }}
 {% for klass in klass_definitions|sort %}
 

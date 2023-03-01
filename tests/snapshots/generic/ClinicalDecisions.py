@@ -10,12 +10,11 @@ from ..abstract_base import GenericRedoxAbstractModel
 from . import types as generic
 
 
-class _ClinicalDecisions(GenericRedoxAbstractModel):
+class _ClinicalDecisions(GenericEventTypeAbstractModel):
     _redox_module = clinicaldecisions
 
 
 class Request(_ClinicalDecisions):
-
     AuthorizingProvider: generic.AuthorizingProvider = Field(None)
     Meta: generic.Meta = Field(...)
     OrderingProvider: generic.OrderingProvider = Field(None)
@@ -26,6 +25,5 @@ class Request(_ClinicalDecisions):
 
 
 class Response(_ClinicalDecisions):
-
     Advisories: List[generic.Advisory] = Field(...)
     Meta: generic.Meta = Field(...)

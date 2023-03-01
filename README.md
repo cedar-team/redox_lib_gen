@@ -43,7 +43,7 @@ poetry shell
 Then run the `generate.py` script:
 
 ```shell
-python3 generate.py
+cd redox_lib_gen && python3 generate.py
 ```
 
 ### Run Options
@@ -71,10 +71,3 @@ Options:
                              the spec.
   --help                     Show this message and exit.
 ```
-
-
-## Limitations
-
-The generated `pyredox` library does not support the following:
-
-- [SSO](https://developer.redoxengine.com/data-models/SSO.html)

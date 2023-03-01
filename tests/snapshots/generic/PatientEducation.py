@@ -10,12 +10,11 @@ from ..abstract_base import GenericRedoxAbstractModel
 from . import types as generic
 
 
-class _PatientEducation(GenericRedoxAbstractModel):
+class _PatientEducation(GenericEventTypeAbstractModel):
     _redox_module = patienteducation
 
 
 class Delete(_PatientEducation):
-
     Education: List[generic.Education] = Field(...)
     Meta: generic.Meta = Field(...)
     Patient: generic.Patient = Field(...)
@@ -23,7 +22,6 @@ class Delete(_PatientEducation):
 
 
 class New(_PatientEducation):
-
     Education: List[generic.Education] = Field(...)
     Meta: generic.Meta = Field(...)
     Patient: generic.Patient = Field(...)
@@ -31,7 +29,6 @@ class New(_PatientEducation):
 
 
 class Update(_PatientEducation):
-
     Education: List[generic.Education] = Field(...)
     Meta: generic.Meta = Field(...)
     Patient: generic.Patient = Field(...)

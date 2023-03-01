@@ -104,6 +104,10 @@ def _get_sub_object_prop_type(type_infos: List[PropertyTypeInfo]) -> PropertyTyp
     )
     relative_imports = reduce(add, (t.relative_imports for t in type_infos))
 
+    # Make sure the list isn't just a set of None values
+    if {t.type for t in type_infos} == {"None"}:
+        type_infos.append(PropertyTypeInfo(DeconstructedType(NATIVE, {"str"})))
+
     # Create the union of the subtypes
     prop_type = DeconstructedType(UNION, {t.type for t in type_infos})
     prop_type_simplified = DeconstructedType(

@@ -10,12 +10,11 @@ from ..abstract_base import GenericRedoxAbstractModel
 from . import types as generic
 
 
-class _Inventory(GenericRedoxAbstractModel):
+class _Inventory(GenericEventTypeAbstractModel):
     _redox_module = inventory
 
 
 class Deplete(_Inventory):
-
     Items: List[generic.Item] = Field(...)
     Meta: generic.Meta = Field(...)
     Patient: generic.Patient = Field(None)
@@ -23,6 +22,5 @@ class Deplete(_Inventory):
 
 
 class Update(_Inventory):
-
     Items: List[generic.Item] = Field(...)
     Meta: generic.Meta = Field(...)

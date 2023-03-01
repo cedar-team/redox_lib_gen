@@ -10,12 +10,11 @@ from ..abstract_base import GenericRedoxAbstractModel
 from . import types as generic
 
 
-class _Vaccination(GenericRedoxAbstractModel):
+class _Vaccination(GenericEventTypeAbstractModel):
     _redox_module = vaccination
 
 
 class Administration(_Vaccination):
-
     Meta: generic.Meta = Field(...)
     Patient: generic.Patient = Field(...)
     Vaccinations: List[generic.Vaccination] = Field(...)
@@ -23,7 +22,6 @@ class Administration(_Vaccination):
 
 
 class New(_Vaccination):
-
     Meta: generic.Meta = Field(...)
     Patient: generic.Patient = Field(...)
     Vaccinations: List[generic.Vaccination] = Field(...)
@@ -31,13 +29,11 @@ class New(_Vaccination):
 
 
 class PatientQuery(_Vaccination):
-
     Meta: generic.Meta = Field(...)
     Patient: generic.Patient = Field(None)
 
 
 class PatientQueryResponse(_Vaccination):
-
     Meta: generic.Meta = Field(...)
     Patient: generic.Patient = Field(None)
     PotentialMatches: List[generic.PotentialMatch] = Field(None)

@@ -49,5 +49,6 @@ def test_compare_generated_with_existing(snapshot, fresh_lib_generation: Path):
                 snapshot_name=snapshot.snapshot_dir / f.relative_to(tmp_dir),
             )
         except AssertionError:
+            print("Snapshot Mismatch... Do you need to run `pytest --snapshot-update`?")
             print(f"FAILED: {f}")
             raise
