@@ -19,7 +19,7 @@ jobs:
       - name: Install Python and Poetry
         uses: ITProKyle/action-setup-python@v0.1.0
         with:
-          python-version: 3.10
+          python-version: "3.10"  # String keeps this from being interpreted as a float
 
       - name: Set up poetry virtualenv
         run: poetry install
@@ -39,7 +39,7 @@ jobs:
       - name: Install Python and Poetry
         uses: ITProKyle/action-setup-python@v0.1.0
         with:
-          python-version: 3.6
+          python-version: 3.7
 
       - name: Set up poetry virtualenv
         run: poetry install
