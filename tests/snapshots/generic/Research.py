@@ -6,7 +6,7 @@ from typing import List, Union
 from pydantic import Field
 
 from pyredox import research
-from ..abstract_base import GenericRedoxAbstractModel
+from ..abstract_base import GenericEventTypeAbstractModel
 from . import types as generic
 
 
