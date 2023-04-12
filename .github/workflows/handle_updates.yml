@@ -1,5 +1,4 @@
 on:
-  pull_request:
   schedule:
     # Run this every Sunday at 7:15
     - cron: '15 7 * * 0'
