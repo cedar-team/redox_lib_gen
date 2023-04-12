@@ -14,28 +14,23 @@ jobs:
         with:
           path: redox_lib_gen
 
-      - name: Change dir to redox_lib_gen
-        run: cd redox_lib_gen
-
       - name: Install Python and Poetry
         uses: ITProKyle/action-setup-python@v0.1.0
         with:
           python-version: "3.10"  # String keeps this from being interpreted as a float
 
       - name: Set up poetry virtualenv
-        run: poetry install
-
-      - run: cd ..
+        run: |
+          cd redox_lib_gen
+          poetry install
 
       # Check out and set up pyredox
       - name: Checkout pyredox
         uses: actions/checkout@v3
         with:
-          repository: cedar/pyredox
+          repository: cedar-team/pyredox
+          ref: main
           path: pyredox
-
-      - name: Change dir to pyredox
-        run: cd pyredox
 
       - name: Install Python and Poetry
         uses: ITProKyle/action-setup-python@v0.1.0
@@ -43,21 +38,19 @@ jobs:
           python-version: 3.7
 
       - name: Set up poetry virtualenv
-        run: poetry install
-
-      - run: cd ..
+        run: |
+          cd pyredox
+          poetry install
 
       # Run generator, handle updates
       - name: Generate fresh version of library
         run: |
           cd redox_lib_gen/redox_lib_gen
-          poetry run generate.py --force-download
-          cd -
+          poetry run python generate.py --force-download
 
       - name: Open PR if there are changes
         run: |
           cd redox_lib_gen/redox_lib_gen
-          poetry run pull_request.py
-          cd -
+          poetry run python pull_request.py
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.PYREDOX_GITHUB_TOKEN }}
