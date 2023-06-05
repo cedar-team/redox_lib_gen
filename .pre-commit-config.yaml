@@ -36,7 +36,7 @@ repos:
   rev: v2.0.0b1
   hooks:
   - id: ufmt
-    exclude: "tests/snapshots/*"
+    exclude: "tests/snapshots/.*"
 - repo: local
   hooks:
   - id: tox
