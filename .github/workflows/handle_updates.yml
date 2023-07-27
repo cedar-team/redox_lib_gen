@@ -17,7 +17,7 @@ jobs:
       - name: Install Python and Poetry
         uses: mmabey/action-setup-python@v0.3.1
         with:
-          path: redox_lib_gen
+          poetry-install-args: "-vvv --remove-untracked --directory=redox_lib_gen"
           python-version: "3.10"  # String keeps this from being interpreted as a float
 
       - name: Set up poetry virtualenv
@@ -35,8 +35,8 @@ jobs:
       - name: Install Python and Poetry
         uses: mmabey/action-setup-python@v0.3.1
         with:
-          path: pyredox
-          python-version: 3.7
+          poetry-install-args: "-vvv --remove-untracked --directory=pyredox"
+          python-version: "3.7"
 
       - name: Set up poetry virtualenv
         working-directory: pyredox
