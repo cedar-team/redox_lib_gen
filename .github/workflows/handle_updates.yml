@@ -17,6 +17,7 @@ jobs:
       - name: Install Python and Poetry
         uses: mmabey/action-setup-python@v0.3.1
         with:
+          path: redox_lib_gen
           python-version: "3.10"  # String keeps this from being interpreted as a float
 
       - name: Set up poetry virtualenv
@@ -27,13 +28,14 @@ jobs:
       - name: Checkout pyredox
         uses: actions/checkout@v3
         with:
+          path: pyredox
           repository: cedar-team/pyredox
           ref: main
-          path: pyredox
 
       - name: Install Python and Poetry
         uses: mmabey/action-setup-python@v0.3.1
         with:
+          path: pyredox
           python-version: 3.7
 
       - name: Set up poetry virtualenv
