@@ -1,6 +1,6 @@
 # Redox Library Generator for Python
 > [!NOTE]  
-> This library is not accepting contributions and is in maintenance mode (only security updates). We recommend using another library if you require more active development.
+> This library is not accepting contributions and is in maintenance mode (only security updates). We recommend forking this code or using another library if you require more active development.
 
 This utility *generates* a library for producing/ingesting JSON data that conforms
 to the [Redox
