@@ -52,5 +52,5 @@ jobs:
         run: |
           cd redox_lib_gen/redox_lib_gen
           poetry run python pull_request.py
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.PYREDOX_GITHUB_TOKEN }}
+        env:
+          PYREDOX_GITHUB_TOKEN: ${{ secrets.PYREDOX_GITHUB_TOKEN }}
