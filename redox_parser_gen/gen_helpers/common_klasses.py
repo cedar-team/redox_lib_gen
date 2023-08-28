@@ -73,7 +73,7 @@ class _Generics:
         for template in self._templates.values():
             template.prefix_schema_types(f"{prefix}.")
             template.add_import(".", f"types as {prefix}")
-            template.add_import("pyredox", template.model_name.lower())
+            template.add_import("redox_parser", template.model_name.lower())
             template.add_relative_import(
                 "abstract_base", "GenericEventTypeAbstractModel"
             )

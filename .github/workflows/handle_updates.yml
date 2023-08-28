@@ -8,11 +8,11 @@ jobs:
   check_for_updated_schema:
     runs-on: ubuntu-latest
     steps:
-      # Check out and set up redox_lib_gen
+      # Check out and set up redox_parser_gen
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          path: redox_lib_gen
+          path: redox_parser_gen
 
       - name: Install Python and Poetry
         uses: ITProKyle/action-setup-python@v0.3.0
@@ -21,16 +21,16 @@ jobs:
 
       - name: Set up poetry virtualenv
         run: |
-          cd redox_lib_gen
+          cd redox_parser_gen
           poetry install
 
-      # Check out and set up pyredox
-      - name: Checkout pyredox
+      # Check out and set up redox_parser
+      - name: Checkout redox_parser
         uses: actions/checkout@v3
         with:
-          repository: cedar-team/pyredox
+          repository: cedar-team/redox_parser
           ref: main
-          path: pyredox
+          path: redox_parser
 
       - name: Install Python and Poetry
         uses: ITProKyle/action-setup-python@v0.3.0
@@ -39,18 +39,18 @@ jobs:
 
       - name: Set up poetry virtualenv
         run: |
-          cd pyredox
+          cd redox_parser
           poetry install
 
       # Run generator, handle updates
       - name: Generate fresh version of library
         run: |
-          cd redox_lib_gen/redox_lib_gen
+          cd redox_parser_gen/redox_parser_gen
           poetry run python generate.py --force-download
 
       - name: Open PR if there are changes
         run: |
-          cd redox_lib_gen/redox_lib_gen
+          cd redox_parser_gen/redox_parser_gen
           poetry run python pull_request.py
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.PYREDOX_GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

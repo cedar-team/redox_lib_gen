@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "redox_lib_gen"
+name = "redox_parser_gen"
 version = "0.1.0-alpha.1"
 description = ""
 authors = ["Mike Mabey <mike.mabey@cedar.com>"]
@@ -49,5 +49,5 @@ legacy_tox_ini = """
         ufmt>=2.0
     allowlist_externals = coverage
     commands =
-        coverage run --source redox_lib_gen -m pytest -vv
+        coverage run --source redox_parser_gen -m pytest -vv
 """

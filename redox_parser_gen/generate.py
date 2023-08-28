@@ -10,7 +10,7 @@ from requests import HTTPError
 SPEC_URL = "https://developer.redoxengine.com/data-models/schemas.zip"
 PARENT_DIR = Path(__file__).parent.resolve()
 CACHE_DIR = PARENT_DIR / "cache"
-LIB_DEST_DIR = (PARENT_DIR / ".." / ".." / "pyredox" / "pyredox").resolve()
+LIB_DEST_DIR = (PARENT_DIR / ".." / ".." / "redox_parser" / "redox_parser").resolve()
 TEMPLATE_DIR = PARENT_DIR / "templates"
 
 
@@ -24,7 +24,7 @@ TEMPLATE_DIR = PARENT_DIR / "templates"
         file_okay=False, dir_okay=True, writable=True, resolve_path=True, path_type=Path
     ),
     help=(
-        "The directory where the pyredox library will be generated. NOTE: If the "
+        "The directory where the redox_parser library will be generated. NOTE: If the "
         "provided path already exists, it will be deleted (along with its contents) "
         "before the library is generated or saved there."
     ),
