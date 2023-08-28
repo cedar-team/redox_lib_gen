@@ -14,7 +14,7 @@ def test_version():
 
 @pytest.fixture
 def fresh_lib_generation(tmp_path) -> Path:
-    tmp_dir = Path(tmp_path).resolve() / "pyredox"
+    tmp_dir = Path(tmp_path).resolve() / "redox-parser"
     tmp_dir.mkdir()
 
     # Change the working directory to be where generate.py file is
@@ -26,7 +26,7 @@ def fresh_lib_generation(tmp_path) -> Path:
         except CalledProcessError as err:
             if err.returncode == 2:
                 print(
-                    "Generation of pyredox library failed due to issues downloading "
+                    "Generation of redox-parser library failed due to issues downloading "
                     "the schema. It's possible the problem may be corrected when run "
                     "again, but for now there is no way to verify that any drift has "
                     "been accounted for in the library."

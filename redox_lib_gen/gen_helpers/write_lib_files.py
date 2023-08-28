@@ -61,7 +61,7 @@ def process_files(
         )
 
     click.echo("Done")
-    click.echo(f"pyredox files generated at {dst}")
+    click.echo(f"redox-parser files generated at {dst}")
 
 
 def write_py_files(

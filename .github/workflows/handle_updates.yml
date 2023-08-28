@@ -24,13 +24,13 @@ jobs:
           cd redox_lib_gen
           poetry install
 
-      # Check out and set up pyredox
-      - name: Checkout pyredox
+      # Check out and set up redox-parser
+      - name: Checkout redox-parser
         uses: actions/checkout@v3
         with:
-          repository: cedar-team/pyredox
+          repository: cedar-team/redox-parser
           ref: main
-          path: pyredox
+          path: redox_parser
 
       - name: Install Python and Poetry
         uses: ITProKyle/action-setup-python@v0.3.0
@@ -39,7 +39,7 @@ jobs:
 
       - name: Set up poetry virtualenv
         run: |
-          cd pyredox
+          cd redox-parser
           poetry install
 
       # Run generator, handle updates
@@ -53,4 +53,4 @@ jobs:
           cd redox_lib_gen/redox_lib_gen
           poetry run python pull_request.py
         env:
-          PYREDOX_GITHUB_TOKEN: ${{ secrets.PYREDOX_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
