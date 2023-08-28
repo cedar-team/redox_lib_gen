@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from copy import copy
 
-from redox_lib_gen.gen_helpers.sub_types import DeconstructedType
-from redox_lib_gen.gen_helpers.types import (
+from redox_parser_gen.gen_helpers.sub_types import DeconstructedType
+from redox_parser_gen.gen_helpers.types import (
     ImportMapping,
     KlassDefinition,
     KlassPropertySignatureInfo,
